@@ -38,6 +38,9 @@ def patient_registration():
         appointment_date    = datetime.strptime(request.form['appointment_date'], '%Y-%m-%d').date()
         time_slot           = request.form.getlist('time_slot')[0]
 
+        # change appointment date to string
+        appointment_date = appointment_date.strftime("%d/%m/%Y")
+
         print(first_name, last_name, email, phone_number, doctor, appointment_date, time_slot)
 
         # insert data into database
