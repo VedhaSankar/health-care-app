@@ -17,6 +17,50 @@ database    = client[DB_NAME]
 
 app = Flask(__name__)
 
+
+@app.route('/register', methods = ["GET", "POST"])
+def register():
+
+    if (request.method == "POST"):
+
+        return redirect('/registered')
+    
+    return render_template('register.html')
+
+
+@app.route('/home', methods = ["POST"])
+def registered():
+
+    if (request.method == "POST"):
+
+        # get user input from html form
+        username            = request.values.get("username")
+        first_name          = request.values.get("first_name")
+        last_name           = request.values.get("last_name")
+        email               = request.values.get("email")
+        phone_number        = request.values.get("phno")
+        password            = request.values.get("psw")
+
+
+        # insert data into database
+        result = {
+            "first_name": first_name,
+            "last_name": last_name,
+            "email": email,
+            "phone_number": phone_number,
+            "password": password
+        }
+
+        collection_name = 'users'
+        new_collection = database[collection_name]
+        x = new_collection.insert_one(result)
+        print(x)
+
+        return render_template('index.html', message = "Registration Successful")
+    
+    return render_template('register.html')
+
+
 @app.route('/', methods = ["GET", "POST"])
 def login():
 
@@ -40,46 +84,6 @@ def home():
         return render_template('index.html', message = "Login Successful")
 
     return render_template('error.html')
-
-
-@app.route('/register', methods = ["GET", "POST"])
-def register():
-
-    if (request.method == "POST"):
-
-        # get user input from html form
-        first_name          = request.values.get("first_name")
-        last_name           = request.values.get("last_name")
-        email               = request.values.get("email")
-        phone_number        = request.values.get("phno")
-        doctor              = request.form.getlist('doctor')[0]
-        appointment_date    = datetime.strptime(request.form['appointment_date'], '%Y-%m-%d').date()
-        time_slot           = request.form.getlist('time_slot')[0]
-
-        # change appointment date to string
-        appointment_date = appointment_date.strftime("%d/%m/%Y")
-
-        print(first_name, last_name, email, phone_number, doctor, appointment_date, time_slot)
-
-        # insert data into database
-        result = {
-            "first_name": first_name,
-            "last_name": last_name,
-            "email": email,
-            "phone_number": phone_number,
-            "doctor": doctor,
-            "appointment_date": appointment_date,
-            "time_slot": time_slot
-        }
-
-        collection_name = 'health-care'
-        new_collection = database[collection_name]
-        x = new_collection.insert_one(result)
-        print(x)
-
-        return render_template('index.html')
-
-    return render_template('register.html')
 
 
 @app.route('/patient-registration', methods = ["GET", "POST"])
