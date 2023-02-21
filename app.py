@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
@@ -7,20 +7,39 @@ from datetime import datetime
 
 load_dotenv()
 
-PORT = os.environ.get('PORT')
-MONGO_URI = os.environ.get('MONGO_URI')
+PORT        = os.environ.get('PORT')
+MONGO_URI   = os.environ.get('MONGO_URI')
 
-client = MongoClient(MONGO_URI)  
+client      = MongoClient(MONGO_URI)  
 
-DB_NAME = 'trials'
-database = client[DB_NAME]
+DB_NAME     = 'trials'
+database    = client[DB_NAME]
 
 app = Flask(__name__)
 
-@app.route('/')
-def start():
+@app.route('/', methods = ["GET", "POST"])
+def login():
 
-    return render_template('index.html')
+    if (request.method == "POST"):
+
+
+        return redirect('/home')
+    
+    return render_template('login.html')
+
+
+
+@app.route('/home', methods = ["POST"])
+def home():
+
+    user        = request.values.get("user")
+    password    = request.values.get("password")
+
+    if user == "admin" and password == "admin":
+
+        return render_template('index.html', message = "Login Successful")
+
+    return render_template('error.html')
 
 
 @app.route('/patient-registration', methods = ["GET", "POST"])
@@ -62,6 +81,8 @@ def patient_registration():
         return render_template('index.html')
 
     return render_template('patient_registration.html')
+
+
 
 if __name__== "__main__":
     app.run(host="0.0.0.0", debug = True, port = PORT)
