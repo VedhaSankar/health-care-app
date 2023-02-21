@@ -11,11 +11,27 @@ PORT        = os.environ.get('PORT')
 MONGO_URI   = os.environ.get('MONGO_URI')
 
 client      = MongoClient(MONGO_URI)  
-
 DB_NAME     = 'trials'
 database    = client[DB_NAME]
 
 app = Flask(__name__)
+
+
+def authenticate(username, password):
+    # check if user exists in database
+    collection_name = 'users'
+    collection = database[collection_name]
+
+    
+    user_found      = collection.find_one({"username": username})
+    password_found  = collection.find_one({"password": password})
+
+    # check if user exists in database
+    if user_found and password_found:
+
+        return True
+
+    return False
 
 
 @app.route('/register', methods = ["GET", "POST"])
@@ -44,6 +60,7 @@ def registered():
 
         # insert data into database
         result = {
+            "username": username,   
             "first_name": first_name,
             "last_name": last_name,
             "email": email,
