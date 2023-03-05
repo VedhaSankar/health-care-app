@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 def authenticate(username, password):
     # check if user exists in database
-    collection_name = 'users'
+    collection_name = 'health-care'
     collection = database[collection_name]
 
     
@@ -68,7 +68,7 @@ def registered():
             "password": password
         }
 
-        collection_name = 'users'
+        collection_name = 'health-care'
         new_collection = database[collection_name]
         x = new_collection.insert_one(result)
         print(x)
