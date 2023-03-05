@@ -22,7 +22,7 @@ def authenticate(username, password):
     collection_name = 'health-care'
     collection = database[collection_name]
 
-
+    
     user_found      = collection.find_one({"username": username})
     password_found  = collection.find_one({"password": password})
 
@@ -39,12 +39,12 @@ def register():
 
     if (request.method == "POST"):
 
-        return redirect('/registered')
+        return redirect('/registration-successful')
     
     return render_template('register.html')
 
 
-@app.route('/home', methods = ["POST"])
+@app.route('/registration-successful', methods = ["POST"])
 def registered():
 
     if (request.method == "POST"):
@@ -74,7 +74,7 @@ def registered():
         print(x)
 
         return render_template('register.html', message = "Registration Successful")
-
+    
     return render_template('register.html')
 
 
@@ -92,15 +92,21 @@ def login():
 
 @app.route('/home', methods = ["POST"])
 def home():
+        
+    if (request.method == "POST"):
 
-    user        = request.values.get("user")
-    password    = request.values.get("password")
+        user        = request.values.get("user")
+        password    = request.values.get("password")
 
-    if user == "admin" and password == "admin":
+        if user == "admin" and password == "admin":
 
-        return render_template('index.html', message = "Login Successful")
+            return render_template('index.html', message = "Login Successful")
+        
+        else:
+                
+                return render_template('error.html', message = "Invalid Credentials")
 
-    return render_template('error.html')
+    return render_template('index.html')
 
 
 @app.route('/patient-appointment-registration', methods = ["GET", "POST"])
