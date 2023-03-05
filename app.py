@@ -22,7 +22,7 @@ def authenticate(username, password):
     collection_name = 'health-care'
     collection = database[collection_name]
 
-    
+
     user_found      = collection.find_one({"username": username})
     password_found  = collection.find_one({"password": password})
 
@@ -74,7 +74,7 @@ def registered():
         print(x)
 
         return render_template('register.html', message = "Registration Successful")
-    
+
     return render_template('register.html')
 
 
