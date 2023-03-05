@@ -73,7 +73,7 @@ def registered():
         x = new_collection.insert_one(result)
         print(x)
 
-        return render_template('index.html', message = "Registration Successful")
+        return render_template('register.html', message = "Registration Successful")
     
     return render_template('register.html')
 
