@@ -68,7 +68,7 @@ def registered():
             "password": password
         }
 
-        collection_name = 'health-care'
+        collection_name = 'users'
         new_collection = database[collection_name]
         x = new_collection.insert_one(result)
         print(x)
@@ -103,8 +103,8 @@ def home():
     return render_template('error.html')
 
 
-@app.route('/patient-registration', methods = ["GET", "POST"])
-def patient_registration():
+@app.route('/patient-appointment-registration', methods = ["GET", "POST"])
+def patient_appointment_registration():
 
     if (request.method == "POST"):
 
@@ -121,7 +121,7 @@ def patient_registration():
         # change appointment date to string
         appointment_date = appointment_date.strftime("%d/%m/%Y")
 
-        print(first_name, last_name, email, phone_number, doctor, appointment_date, time_slot)
+        # print(first_name, last_name, email, phone_number, doctor, appointment_date, time_slot)
 
         # insert data into database
         result = {
@@ -134,12 +134,12 @@ def patient_registration():
             "time_slot": time_slot
         }
 
-        collection_name = 'health-care'
+        collection_name = 'patient-appointment'
         new_collection = database[collection_name]
         x = new_collection.insert_one(result)
         print(x)
 
-        return render_template('index.html')
+        return render_template('patient_registration.html', message = "Appointment booked successfully")
 
     return render_template('patient_registration.html')
 
