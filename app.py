@@ -31,7 +31,7 @@ def register():
     if (request.method == "POST"):
 
         return redirect('/registration-successful')
-        
+
     return render_template('register.html')
 
 
