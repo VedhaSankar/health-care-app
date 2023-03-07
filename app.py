@@ -70,16 +70,23 @@ def registered():
 
 
 
-# homepage
+
 @app.route('/', methods = ["GET", "POST"])
-def home():
+def index():
 
     if (request.method == "POST"):
 
 
-        return redirect('/')
+        return redirect('/home')
     
     return render_template('index.html')
+
+
+@app.route('/home', methods = ["GET", "POST"])
+def home():
+
+
+    return render_template('home.html')
 
 
 @app.route('/login', methods = ["GET", "POST"])
@@ -90,9 +97,6 @@ def login():
         user        = request.values.get("user")
         password    = request.values.get("password")
 
-        # collection_name = 'health-care'
-        # users_collection = database[collection_name]
-
         user_from_db = users_obj.find_one({'username': user})
 
         print(user_from_db)
@@ -101,7 +105,7 @@ def login():
 
             if password == user_from_db['password']:
 
-                return render_template('index.html', message = "Login Successful")                
+                return render_template('home.html', message = "Login Successful")                
             
             else:
                     
@@ -112,25 +116,6 @@ def login():
             return render_template('login.html', message = "Username not found")
 
     return render_template('login.html')
-
-
-# @app.route('/home', methods = ["POST"])
-# def home():
-        
-#     if (request.method == "POST"):
-
-#         user        = request.values.get("user")
-#         password    = request.values.get("password")
-
-#         if user == "admin" and password == "admin":
-
-#             return render_template('index.html', message = "Login Successful")
-        
-#         else:
-                
-#                 return render_template('error.html', message = "Invalid Credentials")
-
-#     return render_template('index.html')
 
 
 @app.route('/patient-appointment-registration', methods = ["GET", "POST"])
