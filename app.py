@@ -69,19 +69,21 @@ def registered():
     return render_template('register.html')
 
 
+
+# homepage
 @app.route('/', methods = ["GET", "POST"])
-def login():
+def home():
 
     if (request.method == "POST"):
 
 
-        return redirect('/home')
+        return redirect('/')
     
-    return render_template('login.html')
+    return render_template('index.html')
 
 
-@app.route('/home', methods = ["POST"])
-def home():
+@app.route('/login', methods = ["GET", "POST"])
+def login():
         
     if (request.method == "POST"):
 
@@ -103,13 +105,13 @@ def home():
             
             else:
                     
-                return render_template('error.html', message = "Incorrect password")
+                return render_template('login.html', message = "Incorrect password")
             
         else:
             
-            return render_template('error.html', message = "Username not found")
+            return render_template('login.html', message = "Username not found")
 
-    return render_template('index.html')
+    return render_template('login.html')
 
 
 # @app.route('/home', methods = ["POST"])
