@@ -4,34 +4,25 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime
 
+from flask_pymongo import PyMongo,pymongo
+from flask_mongoengine import MongoEngine
 
 load_dotenv()
+
+app = Flask(__name__)
+
+app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 
 PORT        = os.environ.get('PORT')
 MONGO_URI   = os.environ.get('MONGO_URI')
 
-client      = MongoClient(MONGO_URI)  
-DB_NAME     = 'trials'
-database    = client[DB_NAME]
 
-app = Flask(__name__)
+mongo   = PyMongo(app)
+db      = MongoEngine()
+db.init_app(app)
 
-
-def authenticate(username, password):
-    # check if user exists in database
-    collection_name = 'health-care'
-    collection = database[collection_name]
-
-    
-    user_found      = collection.find_one({"username": username})
-    password_found  = collection.find_one({"password": password})
-
-    # check if user exists in database
-    if user_found and password_found:
-
-        return True
-
-    return False
+users_obj               = mongo.db.users
+patient_appointment_obj = mongo.db.patient_appointment
 
 
 @app.route('/register', methods = ["GET", "POST"])
@@ -40,7 +31,7 @@ def register():
     if (request.method == "POST"):
 
         return redirect('/registration-successful')
-    
+        
     return render_template('register.html')
 
 
@@ -68,9 +59,9 @@ def registered():
             "password": password
         }
 
-        collection_name = 'users'
-        new_collection = database[collection_name]
-        x = new_collection.insert_one(result)
+        # collection_name = 'users'
+        # new_collection = database[collection_name]
+        x = users_obj.insert_one(result)
         print(x)
 
         return render_template('register.html', message = "Registration Successful")
@@ -89,7 +80,6 @@ def login():
     return render_template('login.html')
 
 
-
 @app.route('/home', methods = ["POST"])
 def home():
         
@@ -98,15 +88,47 @@ def home():
         user        = request.values.get("user")
         password    = request.values.get("password")
 
-        if user == "admin" and password == "admin":
+        # collection_name = 'health-care'
+        # users_collection = database[collection_name]
 
-            return render_template('index.html', message = "Login Successful")
-        
+        user_from_db = users_obj.find_one({'username': user})
+
+        print(user_from_db)
+
+        if user_from_db:
+
+            if password == user_from_db['password']:
+
+                return render_template('index.html', message = "Login Successful")                
+            
+            else:
+                    
+                return render_template('error.html', message = "Incorrect password")
+            
         else:
-                
-                return render_template('error.html', message = "Invalid Credentials")
+            
+            return render_template('error.html', message = "Username not found")
 
     return render_template('index.html')
+
+
+# @app.route('/home', methods = ["POST"])
+# def home():
+        
+#     if (request.method == "POST"):
+
+#         user        = request.values.get("user")
+#         password    = request.values.get("password")
+
+#         if user == "admin" and password == "admin":
+
+#             return render_template('index.html', message = "Login Successful")
+        
+#         else:
+                
+#                 return render_template('error.html', message = "Invalid Credentials")
+
+#     return render_template('index.html')
 
 
 @app.route('/patient-appointment-registration', methods = ["GET", "POST"])
@@ -140,9 +162,9 @@ def patient_appointment_registration():
             "time_slot": time_slot
         }
 
-        collection_name = 'patient-appointment'
-        new_collection = database[collection_name]
-        x = new_collection.insert_one(result)
+        # collection_name = 'patient-appointment'
+        # new_collection = database[collection_name]
+        x = patient_appointment_obj.insert_one(result)
         print(x)
 
         return render_template('patient_registration.html', message = "Appointment booked successfully")
@@ -153,3 +175,4 @@ def patient_appointment_registration():
 
 if __name__== "__main__":
     app.run(host="0.0.0.0", debug = True, port = PORT)
+    # authenticate("vedha", "1234")
