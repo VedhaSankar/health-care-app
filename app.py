@@ -3,13 +3,34 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
 from datetime import datetime
-
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from flask_mail import Mail, Message
+from emailer import send_email
 from flask_pymongo import PyMongo,pymongo
 from flask_mongoengine import MongoEngine
 
 load_dotenv()
 
 app = Flask(__name__)
+mail= Mail(app)
+
+
+SENDER_ADDRESS  = os.environ.get('GMAIL_USER')
+SENDER_PASS     = os.environ.get('GMAIL_PASSWORD')
+EMAIL_LIST      = os.environ.get('EMAIL_LIST').split(',')
+
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = SENDER_ADDRESS
+app.config['MAIL_PASSWORD'] = SENDER_PASS
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config["UPLOAD_FOLDER"] = "uploads/"
+mail = Mail(app)
 
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
 
@@ -51,7 +72,7 @@ def registered():
 
         # insert data into database
         result = {
-            "username": username,   
+            "username": username,
             "first_name": first_name,
             "last_name": last_name,
             "email": email,
@@ -65,7 +86,7 @@ def registered():
         print(x)
 
         return render_template('register.html', message = "Registration Successful")
-    
+
     return render_template('register.html')
 
 
@@ -75,7 +96,6 @@ def registered():
 def index():
 
     if (request.method == "POST"):
-
 
         return redirect('/home')
     
@@ -91,7 +111,7 @@ def home():
 
 @app.route('/login', methods = ["GET", "POST"])
 def login():
-        
+
     if (request.method == "POST"):
 
         user        = request.values.get("user")
@@ -108,11 +128,11 @@ def login():
                 return render_template('home.html', message = "Login Successful")                
             
             else:
-                    
+
                 return render_template('login.html', message = "Incorrect password")
-            
+
         else:
-            
+
             return render_template('login.html', message = "Username not found")
 
     return render_template('login.html')
@@ -153,6 +173,13 @@ def patient_appointment_registration():
         # new_collection = database[collection_name]
         x = patient_appointment_obj.insert_one(result)
         print(x)
+        for sender in EMAIL_LIST:
+            send_email(
+            receiver_address=sender,
+            subject='Alert',
+            content="The mentioned content is FAKE, alerted the authorities!!"
+            )
+
 
         return render_template('patient_registration.html', message = "Appointment booked successfully")
 
