@@ -8,7 +8,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+    <script>
+      //swipper js
+    var swiper = new swiper(".team-slider",{
+        loop: true,
+        grabCursor: true,
+        spaceBetween: 20,
+        breakpoints:{
+             0: {
+          slidesPerView:1,
+          },
+          768: {
+          slidesPerView:2,
+          },
+          991: {
+          slidesPerView:3,
+          },
+        }
+      });
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,400&display=swap');
 
@@ -160,7 +178,7 @@
 
         .home .content h3 {
             font-size: 6rem;
-            color: var(--black);
+            color: var(--white);
             line-height: 1.2;
         }
 
@@ -197,7 +215,7 @@
         }
 
         .about .row .content h3 {
-            color: var(--black);
+            color: var(--white);
             font-size: 3.5rem;
             line-height: 1.5;
         }
@@ -1190,6 +1208,7 @@
 
 <body>
 
+
     <!-- html code -->
     <header class="header">
 
@@ -1220,10 +1239,9 @@
 
         <div class="content">
 
-            <h3>make your smile shine</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt animi, alias cumque iure molestiae
-                excepturi ?</p>
-            <a href="#" class="btn">make appointment</a>
+            <h3 style="color:white">Appoinments made easier!</h3>
+            <p></p>
+            <a href="/patient-appointment-registration" class="btn">make appointment</a>
 
         </div>
 
@@ -1316,7 +1334,7 @@
 
                     <!--         image -->
                     <div class="image">
-                        <img src="https://i.pravatar.cc/400" alt="client">
+                        <img src="static/images/doc1.jpg" alt="client" width="20px" height="1000px">
                         <!--         share section -->
                         <div class="share">
                             <a href="#" class="fab fa-facebook-f"></a>
@@ -1343,7 +1361,7 @@
 
                     <!--         image -->
                     <div class="image">
-                        <img src="https://i.pravatar.cc/400" alt="client">
+                        <img src="static/images/doc2.jpg" alt="client">
                         <!--         share section -->
                         <div class="share">
                             <a href="#" class="fab fa-facebook-f"></a>
@@ -1370,7 +1388,7 @@
 
                     <!--         image -->
                     <div class="image">
-                        <img src="https://i.pravatar.cc/400" alt="client">
+                        <img src="static/images/doc3.jpg" alt="client">
                         <!--         share section -->
                         <div class="share">
                             <a href="#" class="fab fa-facebook-f"></a>
@@ -1397,7 +1415,7 @@
 
                     <!--         image -->
                     <div class="image">
-                        <img src="https://i.pravatar.cc/125" alt="client">
+                        <img src="static/images/doc4.jpg" alt="client">
                         <!--         share section -->
                         <div class="share">
                             <a href="#" class="fab fa-facebook-f"></a>
