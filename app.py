@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, url_for
+from flask_session import Session
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
@@ -9,41 +10,38 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from flask_mail import Mail, Message
 from emailer import send_email
-from flask_pymongo import PyMongo,pymongo
-from flask_mongoengine import MongoEngine
 
 load_dotenv()
 
 app = Flask(__name__)
 mail= Mail(app)
-
+# sess = Session(app)
+# sess.init_app(app)
 
 SENDER_ADDRESS  = os.environ.get('GMAIL_USER')
 SENDER_PASS     = os.environ.get('GMAIL_PASSWORD')
 EMAIL_LIST      = os.environ.get('EMAIL_LIST').split(',')
 
 
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
+app.config['MAIL_SERVER']   ='smtp.gmail.com'
+app.config['MAIL_PORT']     = 465
 app.config['MAIL_USERNAME'] = SENDER_ADDRESS
 app.config['MAIL_PASSWORD'] = SENDER_PASS
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-app.config["UPLOAD_FOLDER"] = "uploads/"
-mail = Mail(app)
+app.config['MAIL_USE_TLS']  = False
+app.config['MAIL_USE_SSL']  = True
+app.config["SESSION_TYPE"] = "filesystem"
 
-app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
+app.secret_key =  b'_5#y2L"F4Q8z\n\xec]/'
 
-PORT        = os.environ.get('PORT')
-MONGO_URI   = os.environ.get('MONGO_URI')
+PORT            = os.environ.get('PORT')
+MONGO_URI       = os.environ.get('MONGO_URI')
 
+# creating a MongoClient object  
+client = MongoClient(MONGO_URI)  
 
-mongo   = PyMongo(app)
-db      = MongoEngine()
-db.init_app(app)
-
-users_obj               = mongo.db.users
-patient_appointment_obj = mongo.db.patient_appointment
+# accessing the database  
+DB_NAME = 'health-care'
+database = client[DB_NAME]
 
 
 @app.route('/register', methods = ["GET", "POST"])
@@ -53,13 +51,17 @@ def register():
 
         return redirect('/registration-successful')
 
-    return render_template('register.html')
+    return render_template('patient_register.html')
 
 
 @app.route('/registration-successful', methods = ["POST"])
 def registered():
 
     if (request.method == "POST"):
+
+
+        collection_name = 'users'
+        new_collection = database[collection_name]
 
         # get user input from html form
         username            = request.values.get("username")
@@ -68,39 +70,53 @@ def registered():
         email               = request.values.get("email")
         phone_number        = request.values.get("phno")
         password            = request.values.get("psw")
+        role                = request.form.getlist('roles')
 
+        # get last inserted id
+        id = new_collection.find().sort("_id", -1).limit(1)[0]['_id'] + 1
 
         # insert data into database
         result = {
+            "_id": id,
             "username": username,
             "first_name": first_name,
             "last_name": last_name,
             "email": email,
             "phone_number": phone_number,
-            "password": password
+            "password": password,
+            "role": role
         }
 
-        # collection_name = 'users'
-        # new_collection = database[collection_name]
-        x = users_obj.insert_one(result)
+        x = new_collection.insert_one(result)
         print(x)
 
-        return render_template('register.html', message = "Registration Successful")
+        
+        # Save the form data to the session object
+        session['uid'] = id
+        # print(session['username'])
 
-    return render_template('register.html')
+        return render_template('patient_register.html', message = "Registration Successful")
+
+    return render_template('patient_register.html')
 
 
 
-# homepage
+
 @app.route('/', methods = ["GET", "POST"])
-def home():
+def index():
 
     if (request.method == "POST"):
 
-
-        return redirect('/')
-
+        return redirect('/home')
+    
     return render_template('index.html')
+
+
+@app.route('/home', methods = ["GET", "POST"])
+def home():
+
+
+    return render_template('home.html')
 
 
 @app.route('/login', methods = ["GET", "POST"])
@@ -108,22 +124,27 @@ def login():
 
     if (request.method == "POST"):
 
-        user        = request.values.get("user")
+        username    = request.values.get("user")
         password    = request.values.get("password")
 
-        # collection_name = 'health-care'
-        # users_collection = database[collection_name]
+        collection_name = 'users'
+        new_collection = database[collection_name]
 
-        user_from_db = users_obj.find_one({'username': user})
+        user_from_db = new_collection.find_one({'username': username})
 
-        print(user_from_db)
+        id = user_from_db['_id']
+
+        # print(user_from_db)
 
         if user_from_db:
 
             if password == user_from_db['password']:
+                
+                session['uid'] = id
+                print(f"User ID {id} set to session")
 
-                return render_template('index.html', message = "Login Successful")
-
+                return render_template('home.html', message = "Login Successful")                
+            
             else:
 
                 return render_template('login.html', message = "Incorrect password")
@@ -135,28 +156,16 @@ def login():
     return render_template('login.html')
 
 
-# @app.route('/home', methods = ["POST"])
-# def home():
+@app.route('/logout', methods = ["GET", "POST"])
+def logout():
 
-#     if (request.method == "POST"):
+    session.pop('uid', None)
 
-#         user        = request.values.get("user")
-#         password    = request.values.get("password")
-
-#         if user == "admin" and password == "admin":
-
-#             return render_template('index.html', message = "Login Successful")
-
-#         else:
-
-#                 return render_template('error.html', message = "Invalid Credentials")
-
-#     return render_template('index.html')
+    return render_template('index.html')
 
 
-
-@app.route('/patient-appointment-registration', methods = ["GET", "POST"])
-def patient_appointment_registration():
+@app.route('/appointment-registration', methods = ["GET", "POST"])
+def appointment_registration():
 
     if (request.method == "POST"):
 
@@ -164,8 +173,6 @@ def patient_appointment_registration():
 
         first_name          = request.values.get("first_name")
         last_name           = request.values.get("last_name")
-        email               = request.values.get("email")
-        phone_number        = request.values.get("phno")
         doctor              = request.form.getlist('doctor')[0]
         appointment_date    = datetime.strptime(request.form['appointment_date'], '%Y-%m-%d').date()
         time_slot           = request.form.getlist('time_slot')[0]
@@ -173,34 +180,43 @@ def patient_appointment_registration():
         # change appointment date to string
         appointment_date = appointment_date.strftime("%d/%m/%Y")
 
-        # print(first_name, last_name, email, phone_number, doctor, appointment_date, time_slot)
+        print("session uid " + str(session['uid']))
 
-        # insert data into database
         result = {
             "first_name": first_name,
             "last_name": last_name,
-            "email": email,
-            "phone_number": phone_number,
             "doctor": doctor,
             "appointment_date": appointment_date,
             "time_slot": time_slot
         }
 
-        # collection_name = 'patient-appointment'
-        # new_collection = database[collection_name]
-        x = patient_appointment_obj.insert_one(result)
+        collection_name = 'patient-appointment'
+        new_collection = database[collection_name]
+        x = new_collection.insert_one(result)
+
         print(x)
-        for sender in EMAIL_LIST:
-            send_email(
-            receiver_address=sender,
-            subject='Alert',
-            content="The mentioned content is FAKE, alerted the authorities!!"
-            )
 
 
-        return render_template('patient_registration.html', message = "Appointment booked successfully")
+        # get user details from database
+        collection_name = 'users'
+        new_collection = database[collection_name]
 
-    return render_template('patient_registration.html')
+        user_from_db = new_collection.find_one({'_id': session['uid']})
+
+        message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
+        
+
+        # for sender in EMAIL_LIST:
+        send_email(
+        receiver_address=user_from_db['email'],
+        subject='Appointment Confirmation',
+        content=message
+        )
+
+
+        return render_template('appointment_registration.html', message = "Appointment booked successfully")
+
+    return render_template('appointment_registration.html')
 
 
 

@@ -8,25 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script>
-        //swipper js
-        var swiper = new swiper(".team-slider", {
-            loop: true,
-            grabCursor: true,
-            spaceBetween: 20,
-            breakpoints: {
-                0: {
-                    slidesPerView: 1,
-                },
-                768: {
-                    slidesPerView: 2,
-                },
-                991: {
-                    slidesPerView: 3,
-                },
-            }
-        });
-    </script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,400&display=swap');
 
@@ -178,7 +160,7 @@
 
         .home .content h3 {
             font-size: 6rem;
-            color: var(--white);
+            color: var(--black);
             line-height: 1.2;
         }
 
@@ -215,7 +197,7 @@
         }
 
         .about .row .content h3 {
-            color: var(--white);
+            color: var(--black);
             font-size: 3.5rem;
             line-height: 1.5;
         }
@@ -1208,7 +1190,6 @@
 
 <body>
 
-
     <!-- html code -->
     <header class="header">
 
@@ -1228,7 +1209,7 @@
             <a href="#blog">blog</a>
         </nav>
         <!--   end navbar -->
-        <a href="/login" class="btn">LOGIN</a>
+        <a href="/" class="btn">Logout</a>
         <div id="menu-btn" class="fas fa-bars"></div>
 
     </header>
@@ -1252,7 +1233,7 @@
 
     <section id="about" class="about">
 
-        <h1 class="heading"> bout us </h1>
+        <h1 class="heading"> about us </h1>
 
         <!--   content -->
         <div class="row">
@@ -1334,7 +1315,7 @@
 
                     <!--         image -->
                     <div class="image">
-                        <img src="static/images/doc1.jpg" alt="client" width="20px" height="1000px">
+                        <img src="https://i.pravatar.cc/400" alt="client">
                         <!--         share section -->
                         <div class="share">
                             <a href="#" class="fab fa-facebook-f"></a>
@@ -1361,7 +1342,7 @@
 
                     <!--         image -->
                     <div class="image">
-                        <img src="static/images/doc2.jpg" alt="client">
+                        <img src="https://i.pravatar.cc/400" alt="client">
                         <!--         share section -->
                         <div class="share">
                             <a href="#" class="fab fa-facebook-f"></a>
@@ -1388,7 +1369,7 @@
 
                     <!--         image -->
                     <div class="image">
-                        <img src="static/images/doc3.jpg" alt="client">
+                        <img src="https://i.pravatar.cc/400" alt="client">
                         <!--         share section -->
                         <div class="share">
                             <a href="#" class="fab fa-facebook-f"></a>
@@ -1415,7 +1396,7 @@
 
                     <!--         image -->
                     <div class="image">
-                        <img src="static/images/doc4.jpg" alt="client">
+                        <img src="https://i.pravatar.cc/125" alt="client">
                         <!--         share section -->
                         <div class="share">
                             <a href="#" class="fab fa-facebook-f"></a>
@@ -1544,7 +1525,7 @@
 
     <!-- contact -->
 
-    <section id="contact" class="contact">
+    <!-- <section id="contact" class="contact">
 
         <h1 class="heading">make appointment</h1>
 
@@ -1570,7 +1551,7 @@
         </form>
     </section>
 
-    <!-- contact ends -->
+    contact ends -->
 
     <!-- footer -->
 
@@ -1603,7 +1584,7 @@
 
             <!--     start column -->
             <div class="box">
-                <h3>opening hours</h3>
+                <h3>available hours</h3>
                 <p>monday-friday : 08:00 - 23:00<br>
                     saturday : 10:00 - 15:00
                 </p>
@@ -1612,9 +1593,9 @@
 
         </div>
 
-        <div class="credit">
+        <!-- <div class="credit">
             made with <i class="fas fa-heart"></i> by <span>marvy ayman</span> | all rights reserved &copy;2022
-        </div>
+        </div> -->
 
     </section>
     {{message}}
