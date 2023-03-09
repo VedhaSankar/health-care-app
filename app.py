@@ -138,7 +138,7 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/patient-appointment-registration', methods = ["GET", "POST"])
+@app.route('/appointment-registration', methods = ["GET", "POST"])
 def patient_appointment_registration():
 
     if (request.method == "POST"):
