@@ -97,7 +97,10 @@ body{
     text-decoration: none;
     color:#000;
    }
-    .footer {
+
+
+ .footer {
+
         text-align: center;
         font-size: 0.9rem;
         background:rgba(17, 219, 207,0.8);
