@@ -18,8 +18,6 @@ mail= Mail(app)
 # sess = Session(app)
 # sess.init_app(app)
 
-# app.secret_key = 'super secret key'
-
 SENDER_ADDRESS  = os.environ.get('GMAIL_USER')
 SENDER_PASS     = os.environ.get('GMAIL_PASSWORD')
 EMAIL_LIST      = os.environ.get('EMAIL_LIST').split(',')
@@ -31,10 +29,8 @@ app.config['MAIL_USERNAME'] = SENDER_ADDRESS
 app.config['MAIL_PASSWORD'] = SENDER_PASS
 app.config['MAIL_USE_TLS']  = False
 app.config['MAIL_USE_SSL']  = True
-# app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 
-SESSION_ID_KEY  = "sid"
 app.secret_key =  b'_5#y2L"F4Q8z\n\xec]/'
 
 PORT            = os.environ.get('PORT')
@@ -46,49 +42,6 @@ client = MongoClient(MONGO_URI)
 # accessing the database  
 DB_NAME = 'health-care'
 database = client[DB_NAME]
-
-# def requires_session(f):
-  
-#     @wraps(f)
-#     def decorated(*args, **kwargs):
-
-#         # check apikey in args
-#         if SESSION_ID_KEY not in session:
-
-#             # print('session not available')
-
-#             # data = {
-#             #     'apiresult' : 'Session Not Available',
-#             #     'apimessage': 1011
-#             # }
-
-#             # return jsonify(data)
-#             return redirect(url_for('login'))
-
-#         # print('session is available')
-
-#         # verify user_session
-#         user_session = session.get(SESSION_ID_KEY)
-
-#         return f(*args, **kwargs)
-
-#     return decorated
-
-# def is_session_valid():
-
-#     if(SESSION_ID_KEY in session):
-#         return True
-
-#     return False
-
-# def get_sid():
-
-#     return session[SESSION_ID_KEY]
-
-# def get_username():
-
-#     return session["username"]
-
 
 
 @app.route('/register', methods = ["GET", "POST"])
@@ -139,11 +92,8 @@ def registered():
 
         
         # Save the form data to the session object
-        session['username'] = username
+        session['uid'] = id
         # print(session['username'])
-
-        
-        
 
         return render_template('patient_register.html', message = "Registration Successful")
 
@@ -165,8 +115,6 @@ def index():
 @app.route('/home', methods = ["GET", "POST"])
 def home():
 
-    
-
 
     return render_template('home.html')
 
@@ -179,22 +127,21 @@ def login():
         username    = request.values.get("user")
         password    = request.values.get("password")
 
-        print(username, password)
-
-
         collection_name = 'users'
         new_collection = database[collection_name]
 
         user_from_db = new_collection.find_one({'username': username})
 
-        print(user_from_db)
+        id = user_from_db['_id']
+
+        # print(user_from_db)
 
         if user_from_db:
 
             if password == user_from_db['password']:
                 
-                session['username'] = username
-                print(f"User name {username} set to session")
+                session['uid'] = id
+                print(f"User ID {id} set to session")
 
                 return render_template('home.html', message = "Login Successful")                
             
@@ -212,7 +159,7 @@ def login():
 @app.route('/logout', methods = ["GET", "POST"])
 def logout():
 
-    session.pop('username', None)
+    session.pop('uid', None)
 
     return render_template('index.html')
 
@@ -226,8 +173,6 @@ def appointment_registration():
 
         first_name          = request.values.get("first_name")
         last_name           = request.values.get("last_name")
-        email               = request.values.get("email")
-        phone_number        = request.values.get("phno")
         doctor              = request.form.getlist('doctor')[0]
         appointment_date    = datetime.strptime(request.form['appointment_date'], '%Y-%m-%d').date()
         time_slot           = request.form.getlist('time_slot')[0]
@@ -235,18 +180,11 @@ def appointment_registration():
         # change appointment date to string
         appointment_date = appointment_date.strftime("%d/%m/%Y")
 
-        # print(first_name, last_name, email, phone_number, doctor, appointment_date, time_slot)
-        # if 'username' in session:
-            # username = session.get('username')
-        print(session['username'])
-        # else:
-        #     print("boooooo")
-        # insert data into database
+        print("session uid " + str(session['uid']))
+
         result = {
             "first_name": first_name,
             "last_name": last_name,
-            "email": email,
-            "phone_number": phone_number,
             "doctor": doctor,
             "appointment_date": appointment_date,
             "time_slot": time_slot
@@ -257,14 +195,23 @@ def appointment_registration():
         x = new_collection.insert_one(result)
 
         print(x)
+
+
+        # get user details from database
+        collection_name = 'users'
+        new_collection = database[collection_name]
+
+        user_from_db = new_collection.find_one({'_id': session['uid']})
+
+        message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
         
 
         # for sender in EMAIL_LIST:
-        #     send_email(
-        #     receiver_address=sender,
-        #     subject='Appointment Confirmation',
-        #     content="Your appointment has been booked successfully"
-        #     )
+        send_email(
+        receiver_address=user_from_db['email'],
+        subject='Appointment Confirmation',
+        content=message
+        )
 
 
         return render_template('appointment_registration.html', message = "Appointment booked successfully")
