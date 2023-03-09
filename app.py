@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, url_for
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
@@ -9,8 +9,6 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from flask_mail import Mail, Message
 from emailer import send_email
-from flask_pymongo import PyMongo,pymongo
-from flask_mongoengine import MongoEngine
 
 load_dotenv()
 
@@ -23,27 +21,69 @@ SENDER_PASS     = os.environ.get('GMAIL_PASSWORD')
 EMAIL_LIST      = os.environ.get('EMAIL_LIST').split(',')
 
 
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
+app.config['MAIL_SERVER']   ='smtp.gmail.com'
+app.config['MAIL_PORT']     = 465
 app.config['MAIL_USERNAME'] = SENDER_ADDRESS
 app.config['MAIL_PASSWORD'] = SENDER_PASS
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-app.config["UPLOAD_FOLDER"] = "uploads/"
-mail = Mail(app)
-
-app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
-
-PORT        = os.environ.get('PORT')
-MONGO_URI   = os.environ.get('MONGO_URI')
+app.config['MAIL_USE_TLS']  = False
+app.config['MAIL_USE_SSL']  = True
 
 
-mongo   = PyMongo(app)
-db      = MongoEngine()
-db.init_app(app)
+SESSION_ID_KEY  = "sid"
+app.secret_key  = "secret key"
 
-users_obj               = mongo.db.users
-patient_appointment_obj = mongo.db.patient_appointment
+PORT            = os.environ.get('PORT')
+MONGO_URI       = os.environ.get('MONGO_URI')
+
+# creating a MongoClient object  
+client = MongoClient(MONGO_URI)  
+
+# accessing the database  
+DB_NAME = 'health-care'
+database = client[DB_NAME]
+
+# def requires_session(f):
+  
+#     @wraps(f)
+#     def decorated(*args, **kwargs):
+
+#         # check apikey in args
+#         if SESSION_ID_KEY not in session:
+
+#             # print('session not available')
+
+#             # data = {
+#             #     'apiresult' : 'Session Not Available',
+#             #     'apimessage': 1011
+#             # }
+
+#             # return jsonify(data)
+#             return redirect(url_for('page_login_get'))
+
+#         # print('session is available')
+
+#         # verify user_session
+#         user_session = session.get(SESSION_ID_KEY)
+
+#         return f(*args, **kwargs)
+
+#     return decorated
+
+def is_session_valid():
+
+    if(SESSION_ID_KEY in session):
+        return True
+
+    return False
+
+def get_sid():
+
+    return session[SESSION_ID_KEY]
+
+def get_username():
+
+    return session["username"]
+
 
 
 @app.route('/register', methods = ["GET", "POST"])
@@ -61,6 +101,10 @@ def registered():
 
     if (request.method == "POST"):
 
+
+        collection_name = 'users'
+        new_collection = database[collection_name]
+
         # get user input from html form
         username            = request.values.get("username")
         first_name          = request.values.get("first_name")
@@ -68,21 +112,24 @@ def registered():
         email               = request.values.get("email")
         phone_number        = request.values.get("phno")
         password            = request.values.get("psw")
+        role                = request.form.getlist('roles')
 
+        # get last inserted id
+        id = new_collection.find().sort("_id", -1).limit(1)[0]['_id'] + 1
 
         # insert data into database
         result = {
+            "_id": id,
             "username": username,
             "first_name": first_name,
             "last_name": last_name,
             "email": email,
             "phone_number": phone_number,
-            "password": password
+            "password": password,
+            "role": role
         }
 
-        # collection_name = 'users'
-        # new_collection = database[collection_name]
-        x = users_obj.insert_one(result)
+        x = new_collection.insert_one(result)
         print(x)
 
         return render_template('patient_register.html', message = "Registration Successful")
@@ -117,7 +164,11 @@ def login():
         user        = request.values.get("user")
         password    = request.values.get("password")
 
-        user_from_db = users_obj.find_one({'username': user})
+
+        collection_name = 'users'
+        new_collection = database[collection_name]
+
+        user_from_db = new_collection.find_one({'username': user})
 
         print(user_from_db)
 
@@ -169,15 +220,17 @@ def appointment_registration():
             "time_slot": time_slot
         }
 
-        # collection_name = 'patient-appointment'
-        # new_collection = database[collection_name]
-        x = patient_appointment_obj.insert_one(result)
+        collection_name = 'patient-appointment'
+        new_collection = database[collection_name]
+        x = new_collection.insert_one(result)
+
         print(x)
+
         for sender in EMAIL_LIST:
             send_email(
             receiver_address=sender,
-            subject='Alert',
-            content="The mentioned content is FAKE, alerted the authorities!!"
+            subject='Appointment Confirmation',
+            content="Your appointment has been booked successfully"
             )
 
 
