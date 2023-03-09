@@ -53,7 +53,7 @@ def register():
 
         return redirect('/registration-successful')
 
-    return render_template('register.html')
+    return render_template('patient_register.html')
 
 
 @app.route('/registration-successful', methods = ["POST"])
@@ -85,9 +85,9 @@ def registered():
         x = users_obj.insert_one(result)
         print(x)
 
-        return render_template('register.html', message = "Registration Successful")
+        return render_template('patient_register.html', message = "Registration Successful")
 
-    return render_template('register.html')
+    return render_template('patient_register.html')
 
 
 
@@ -139,7 +139,7 @@ def login():
 
 
 @app.route('/appointment-registration', methods = ["GET", "POST"])
-def patient_appointment_registration():
+def appointment_registration():
 
     if (request.method == "POST"):
 
@@ -181,9 +181,9 @@ def patient_appointment_registration():
             )
 
 
-        return render_template('patient_registration.html', message = "Appointment booked successfully")
+        return render_template('appointment_registration.html', message = "Appointment booked successfully")
 
-    return render_template('patient_registration.html')
+    return render_template('appointment_registration.html')
 
 
 
