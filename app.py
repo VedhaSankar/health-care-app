@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, url_for
+from flask_session import Session
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
@@ -14,7 +15,10 @@ load_dotenv()
 
 app = Flask(__name__)
 mail= Mail(app)
+# sess = Session(app)
+# sess.init_app(app)
 
+# app.secret_key = 'super secret key'
 
 SENDER_ADDRESS  = os.environ.get('GMAIL_USER')
 SENDER_PASS     = os.environ.get('GMAIL_PASSWORD')
@@ -27,10 +31,11 @@ app.config['MAIL_USERNAME'] = SENDER_ADDRESS
 app.config['MAIL_PASSWORD'] = SENDER_PASS
 app.config['MAIL_USE_TLS']  = False
 app.config['MAIL_USE_SSL']  = True
-
+# app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
 
 SESSION_ID_KEY  = "sid"
-app.secret_key  = "secret key"
+app.secret_key =  b'_5#y2L"F4Q8z\n\xec]/'
 
 PORT            = os.environ.get('PORT')
 MONGO_URI       = os.environ.get('MONGO_URI')
@@ -58,7 +63,7 @@ database = client[DB_NAME]
 #             # }
 
 #             # return jsonify(data)
-#             return redirect(url_for('page_login_get'))
+#             return redirect(url_for('login'))
 
 #         # print('session is available')
 
@@ -69,20 +74,20 @@ database = client[DB_NAME]
 
 #     return decorated
 
-def is_session_valid():
+# def is_session_valid():
 
-    if(SESSION_ID_KEY in session):
-        return True
+#     if(SESSION_ID_KEY in session):
+#         return True
 
-    return False
+#     return False
 
-def get_sid():
+# def get_sid():
 
-    return session[SESSION_ID_KEY]
+#     return session[SESSION_ID_KEY]
 
-def get_username():
+# def get_username():
 
-    return session["username"]
+#     return session["username"]
 
 
 
@@ -132,6 +137,14 @@ def registered():
         x = new_collection.insert_one(result)
         print(x)
 
+        
+        # Save the form data to the session object
+        session['username'] = username
+        # print(session['username'])
+
+        
+        
+
         return render_template('patient_register.html', message = "Registration Successful")
 
     return render_template('patient_register.html')
@@ -152,6 +165,8 @@ def index():
 @app.route('/home', methods = ["GET", "POST"])
 def home():
 
+    
+
 
     return render_template('home.html')
 
@@ -161,20 +176,25 @@ def login():
 
     if (request.method == "POST"):
 
-        user        = request.values.get("user")
+        username    = request.values.get("user")
         password    = request.values.get("password")
+
+        print(username, password)
 
 
         collection_name = 'users'
         new_collection = database[collection_name]
 
-        user_from_db = new_collection.find_one({'username': user})
+        user_from_db = new_collection.find_one({'username': username})
 
         print(user_from_db)
 
         if user_from_db:
 
             if password == user_from_db['password']:
+                
+                session['username'] = username
+                print(f"User name {username} set to session")
 
                 return render_template('home.html', message = "Login Successful")                
             
@@ -187,6 +207,14 @@ def login():
             return render_template('login.html', message = "Username not found")
 
     return render_template('login.html')
+
+
+@app.route('/logout', methods = ["GET", "POST"])
+def logout():
+
+    session.pop('username', None)
+
+    return render_template('index.html')
 
 
 @app.route('/appointment-registration', methods = ["GET", "POST"])
@@ -208,7 +236,11 @@ def appointment_registration():
         appointment_date = appointment_date.strftime("%d/%m/%Y")
 
         # print(first_name, last_name, email, phone_number, doctor, appointment_date, time_slot)
-
+        # if 'username' in session:
+            # username = session.get('username')
+        print(session['username'])
+        # else:
+        #     print("boooooo")
         # insert data into database
         result = {
             "first_name": first_name,
@@ -225,13 +257,14 @@ def appointment_registration():
         x = new_collection.insert_one(result)
 
         print(x)
+        
 
-        for sender in EMAIL_LIST:
-            send_email(
-            receiver_address=sender,
-            subject='Appointment Confirmation',
-            content="Your appointment has been booked successfully"
-            )
+        # for sender in EMAIL_LIST:
+        #     send_email(
+        #     receiver_address=sender,
+        #     subject='Appointment Confirmation',
+        #     content="Your appointment has been booked successfully"
+        #     )
 
 
         return render_template('appointment_registration.html', message = "Appointment booked successfully")
