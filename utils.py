@@ -6,7 +6,7 @@ from flask_mongoengine import MongoEngine
 
 load_dotenv()
 
-MONGO_URI       = os.environ.get('MONGO_URI')
+MONGO_URI = os.environ.get('MONGO_URI')
 
 # creating a MongoClient object  
 client = MongoClient(MONGO_URI)  
