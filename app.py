@@ -132,14 +132,13 @@ def login():
 
         user_from_db = new_collection.find_one({'username': username})
 
-        id = user_from_db['_id']
-
         # print(user_from_db)
 
         if user_from_db:
-
+            
             if password == user_from_db['password']:
                 
+                id = user_from_db['_id']        
                 session['id'] = id
                 print(f"User ID {id} set to session")
 
@@ -180,44 +179,62 @@ def appointment_registration():
         # change appointment date to string
         appointment_date = appointment_date.strftime("%d/%m/%Y")
 
+        # get user details from database
+        collection_name = 'users'
+        users_collection = database[collection_name]
+
+        user_from_db = users_collection.find_one({'_id': session['id']})
+        
         print("session id " + str(session['id']))
 
+        id                   = session['id']
+        username_from_db     = user_from_db['username']
+
         result = {
-            "first_name": first_name,
-            "last_name": last_name,
-            "doctor": doctor,
-            "appointment_date": appointment_date,
-            "time_slot": time_slot
+            "user_id"           : id,       #connects user db to patient registration db
+            "username"          : username_from_db,
+            "first_name"        : first_name,
+            "last_name"         : last_name,
+            "doctor"            : doctor,
+            "appointment_date"  : appointment_date,
+            "time_slot"         : time_slot
         }
 
         collection_name = 'patient-appointment'
-        new_collection = database[collection_name]
-        x = new_collection.insert_one(result)
+        patient_collection = database[collection_name]
+        x = patient_collection.insert_one(result)
 
         print(x)
 
-
-        # get user details from database
-        collection_name = 'users'
-        new_collection = database[collection_name]
-
-        user_from_db = new_collection.find_one({'_id': session['id']})
-
-        message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
+        # message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
         
 
         # for sender in EMAIL_LIST:
-        send_email(
-        receiver_address=user_from_db['email'],
-        subject='Appointment Confirmation',
-        content=message
-        )
+        # send_email(
+        # receiver_address=user_from_db['email'],
+        # subject='Appointment Confirmation',
+        # content=message
+        # )
 
-
-        return render_template('appointment_registration.html', message = "Appointment booked successfully")
+        return redirect('/appointment-list')
 
     return render_template('appointment_registration.html')
 
+@app.route('/appointment-list', methods = ["GET", "POST"])
+def appointment_list():
+
+    print("ranjithame")
+
+    collection_name = 'patient-appointment'
+    new_collection = database[collection_name]
+
+    user_from_db = new_collection.find({}, {'user_id': session['id'], "appointment_date" : 1, "time_slot":1, "doctor":1, "first_name":1, "last_name":1}     )
+    # print(type(user_from_db))
+    # for item in user_from_db:
+
+    #     print(item.get('first_name'))
+
+    return render_template('appointment-list.html',user_from_db=user_from_db)
 
 
 if __name__== "__main__":

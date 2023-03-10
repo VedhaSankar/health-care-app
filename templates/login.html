@@ -11,6 +11,7 @@
             padding: 0;
             margin: 0;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         body {
@@ -26,7 +27,7 @@
             flex-direction: column;
             width: 500px;
             box-shadow: 1px 2px 71px -6px rgba(0, 0, 0, 0.67);
-            height: fit-content;
+            height: 500px;
             font-family: 'Ubuntu', sans-serif;
             background-color: #212529;
             padding: 50px 20px;
@@ -153,12 +154,22 @@
         <button type="submit">Sign In</button>
         <span><span><a href="/">Forgot Password?</a></span>
             <span>Not a member? <a href="/register"> Sign Up</a></span></span>
+
+
+
+        <center>
+
+            <span style="padding-top: 2rem; padding-left: 8rem; font-size: 20px; text-align: center;">
+                <b>{{message}}</b>
+            </span>
+
+        </center>
+
     </form>
+    <!-- <div id="message" style="padding-top:55rem; color:white;text-align: center; justify-content: center;"> -->
 
-    <!-- <div style="padding-top:55rem;float:right;padding-right:60rem;color:white;"> -->
 
-
-    {{message}}
+    <!-- </div> -->
 
     <!-- </div> -->
 
