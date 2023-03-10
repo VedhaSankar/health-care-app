@@ -18,7 +18,8 @@ database = client[DB_NAME]
 
 def delete_all_records():
 
-    collection_name = 'users'
+    # collection_name = 'users'
+    collection_name = 'patient-appointment'
     new_collection = database[collection_name]
 
     new_collection.delete_many({})
@@ -52,9 +53,31 @@ def find_by_id(id):
 
 def start():
 
-    find_by_id(1)
+    # find_by_id(1)
     # insert_one_user()
-    # delete_all_records()
+    delete_all_records()
 
 if __name__ == "__main__":
     start()
+
+#       <!-- <table>
+#         <tr>
+#             <th>Firstname</th>
+#             <th>Lastname</th>
+#             <th>Timeslot</th>
+#             <th>doctor</th>
+#             <th>Appointment-date</th>
+#         </tr>
+       
+#     {% for list in user_from_db %}
+#     <tr>
+#       <td>{{list['firstname']}}</td>
+#       <td>{{list['lastname']}}</td>
+#       <td>{{list['timeslot']}}</td>
+#       <td>{{list['doctor']}}</td>
+#       <td>{{list['appointment-date']}}</td>
+
+#     </tr>
+#     {% endfor % }
+
+# </table> -->
