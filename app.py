@@ -92,7 +92,7 @@ def registered():
 
         
         # Save the form data to the session object
-        session['uid'] = id
+        session['id'] = id
         # print(session['username'])
 
         return render_template('patient_register.html', message = "Registration Successful")
@@ -140,7 +140,7 @@ def login():
 
             if password == user_from_db['password']:
                 
-                session['uid'] = id
+                session['id'] = id
                 print(f"User ID {id} set to session")
 
                 return render_template('home.html', message = "Login Successful")                
@@ -159,7 +159,7 @@ def login():
 @app.route('/logout', methods = ["GET", "POST"])
 def logout():
 
-    session.pop('uid', None)
+    session.pop('id', None)
 
     return render_template('index.html')
 
@@ -180,7 +180,7 @@ def appointment_registration():
         # change appointment date to string
         appointment_date = appointment_date.strftime("%d/%m/%Y")
 
-        print("session uid " + str(session['uid']))
+        print("session id " + str(session['id']))
 
         result = {
             "first_name": first_name,
@@ -201,7 +201,7 @@ def appointment_registration():
         collection_name = 'users'
         new_collection = database[collection_name]
 
-        user_from_db = new_collection.find_one({'_id': session['uid']})
+        user_from_db = new_collection.find_one({'_id': session['id']})
 
         message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
         
