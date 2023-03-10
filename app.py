@@ -15,8 +15,9 @@ load_dotenv()
 
 app = Flask(__name__)
 mail= Mail(app)
-# sess = Session(app)
-# sess.init_app(app)
+# uncommented these two lines
+sess = Session(app)
+sess.init_app(app)
 
 SENDER_ADDRESS  = os.environ.get('GMAIL_USER')
 SENDER_PASS     = os.environ.get('GMAIL_PASSWORD')
@@ -31,16 +32,16 @@ app.config['MAIL_USE_TLS']  = False
 app.config['MAIL_USE_SSL']  = True
 app.config["SESSION_TYPE"] = "filesystem"
 
-app.secret_key =  b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key =  b'_5#y2L"F4Q8z\n\xec]/4'
 
 PORT            = os.environ.get('PORT')
 MONGO_URI       = os.environ.get('MONGO_URI')
 
-# creating a MongoClient object  
-client = MongoClient(MONGO_URI)  
+# creating a MongoClient object
+client = MongoClient(MONGO_URI)
 
-# accessing the database  
-DB_NAME = 'health-care'
+# accessing the database
+DB_NAME = 'trialss' #health-care
 database = client[DB_NAME]
 
 
@@ -90,7 +91,7 @@ def registered():
         x = new_collection.insert_one(result)
         print(x)
 
-        
+
         # Save the form data to the session object
         session['id'] = id
         # print(session['username'])
@@ -108,7 +109,7 @@ def index():
     if (request.method == "POST"):
 
         return redirect('/home')
-    
+
     return render_template('index.html')
 
 
@@ -138,13 +139,14 @@ def login():
 
         if user_from_db:
 
-            if password == user_from_db['password']:
+       
                 
                 session['id'] = id
+
                 print(f"User ID {id} set to session")
 
-                return render_template('home.html', message = "Login Successful")                
-            
+                return render_template('home.html', message = "Login Successful")
+
             else:
 
                 return render_template('login.html', message = "Incorrect password")
@@ -204,7 +206,7 @@ def appointment_registration():
         user_from_db = new_collection.find_one({'_id': session['id']})
 
         message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
-        
+
 
         # for sender in EMAIL_LIST:
         send_email(
