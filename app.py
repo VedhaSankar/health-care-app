@@ -16,9 +16,6 @@ load_dotenv()
 app = Flask(__name__)
 mail= Mail(app)
 
-# uncommented these two lines
-# sess = Session(app)
-# sess.init_app(app)
 
 SENDER_ADDRESS  = os.environ.get('GMAIL_USER')
 SENDER_PASS     = os.environ.get('GMAIL_PASSWORD')
