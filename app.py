@@ -15,14 +15,16 @@ load_dotenv()
 
 app = Flask(__name__)
 mail= Mail(app)
+
 # uncommented these two lines
-sess = Session(app)
-sess.init_app(app)
+# sess = Session(app)
+# sess.init_app(app)
 
 SENDER_ADDRESS  = os.environ.get('GMAIL_USER')
 SENDER_PASS     = os.environ.get('GMAIL_PASSWORD')
 EMAIL_LIST      = os.environ.get('EMAIL_LIST').split(',')
 
+app.secret_key =  b'_5#y2L"F4Q8z\n\xec]/4'
 
 app.config['MAIL_SERVER']   ='smtp.gmail.com'
 app.config['MAIL_PORT']     = 465
@@ -32,16 +34,15 @@ app.config['MAIL_USE_TLS']  = False
 app.config['MAIL_USE_SSL']  = True
 app.config["SESSION_TYPE"] = "filesystem"
 
-app.secret_key =  b'_5#y2L"F4Q8z\n\xec]/4'
 
 PORT            = os.environ.get('PORT')
 MONGO_URI       = os.environ.get('MONGO_URI')
+DB_NAME         = os.environ.get('DB_NAME')
 
 # creating a MongoClient object
 client = MongoClient(MONGO_URI)
 
 # accessing the database
-DB_NAME = 'trialss' #health-care
 database = client[DB_NAME]
 
 
@@ -71,7 +72,7 @@ def registered():
         email               = request.values.get("email")
         phone_number        = request.values.get("phno")
         password            = request.values.get("psw")
-        role                = request.form.getlist('roles')
+        role                = request.form.getlist('roles')[0]
 
         # get last inserted id
         id = new_collection.find().sort("_id", -1).limit(1)[0]['_id'] + 1
@@ -133,7 +134,7 @@ def login():
 
         user_from_db = new_collection.find_one({'username': username})
 
-        # print(user_from_db)
+        print(user_from_db)
 
         if user_from_db:
 
@@ -220,6 +221,7 @@ def appointment_registration():
         # content=message
         # )
 
+
         return redirect('/appointment-list')
 
 
@@ -229,7 +231,7 @@ def appointment_registration():
 @app.route('/appointment-list', methods = ["GET", "POST"])
 def appointment_list():
 
-    print("ranjithame")
+    print(session['id'])
 
     collection_name = 'patient-appointment'
     new_collection = database[collection_name]
