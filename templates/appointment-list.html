@@ -14,15 +14,15 @@
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Timeslot</th>
-            <th>doctor</th>
+            <th>Doctor</th>
             <th>Appointment-date</th>
         </tr>
 
         {% for list in user_from_db %}
         <tr>
             <td>{{list.get('first_name')}}</td>
-            <td>{{list .get('last_name')}}</td>
-            <td>{{list.get('times_lot')}}</td>
+            <td>{{list.get('last_name')}}</td>
+            <td>{{list.get('time_slot')}}</td>
             <td>{{list.get('doctor')}}</td>
             <td>{{list.get('appointment_date')}}</td>
 

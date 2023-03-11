@@ -72,7 +72,10 @@ def registered():
         role                = request.form.getlist('roles')[0]
 
         # get last inserted id
-        id = new_collection.find().sort("_id", -1).limit(1)[0]['_id'] + 1
+        try:
+            id = new_collection.find().sort("_id", -1).limit(1)[0]['_id'] + 1
+        except:
+            id = 1
 
         # insert data into database
         result = {
@@ -131,7 +134,7 @@ def login():
 
         user_from_db = new_collection.find_one({'username': username})
 
-        print(user_from_db)
+        # print(user_from_db)
 
         if user_from_db:
 
@@ -186,11 +189,22 @@ def appointment_registration():
         users_collection = database[collection_name]
 
         user_from_db = users_collection.find_one({'_id': session['id']})
-        
-        print("session id " + str(session['id']))
+
 
         id                   = session['id']
         username_from_db     = user_from_db['username']
+
+        collection_name = 'patient-appointment'
+        patient_collection = database[collection_name]
+        appointment_from_db = patient_collection.find({},{"appointment_date":1, "time_slot" : 1, "doctor" : 1})
+
+        for item in appointment_from_db:
+
+            if item['appointment_date'] == appointment_date and item["time_slot"] == time_slot and item['doctor'] == doctor:
+
+                message = "Please choose a different time slot/date or choose a different doctor"
+
+                return render_template("appointment-registration.html", message = message)
 
         result = {
             "user_id"           : id,       #connects user db to patient registration db
@@ -202,11 +216,9 @@ def appointment_registration():
             "time_slot"         : time_slot
         }
 
-        collection_name = 'patient-appointment'
-        patient_collection = database[collection_name]
         x = patient_collection.insert_one(result)
 
-        print(x)
+        # print(x)
 
         # message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
         
@@ -222,22 +234,18 @@ def appointment_registration():
         return redirect('/appointment-list')
 
 
-    return render_template('appointment_registration.html')
+    return render_template('appointment-registration.html')
 
 
 @app.route('/appointment-list', methods = ["GET", "POST"])
 def appointment_list():
 
-    print(session['id'])
+    # print(session['id'])
 
     collection_name = 'patient-appointment'
     new_collection = database[collection_name]
 
-    user_from_db = new_collection.find({}, {'user_id': session['id'], "appointment_date" : 1, "time_slot":1, "doctor":1, "first_name":1, "last_name":1}     )
-    # print(type(user_from_db))
-    # for item in user_from_db:
-
-    #     print(item.get('first_name'))
+    user_from_db = new_collection.find({'user_id': session['id']}, {"appointment_date" : 1, "time_slot":1, "doctor":1, "first_name":1, "last_name":1})
 
     return render_template('appointment-list.html',user_from_db=user_from_db)
 
