@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 from flask_session import Session
 from pymongo import MongoClient
 from dotenv import load_dotenv
@@ -22,6 +22,7 @@ mail= Mail(app)
 SENDER_ADDRESS  = os.environ.get('GMAIL_USER')
 SENDER_PASS     = os.environ.get('GMAIL_PASSWORD')
 EMAIL_LIST      = os.environ.get('EMAIL_LIST').split(',')
+ALLOWED_EXTENSIONS  = {'pdf'}
 
 app.secret_key =  b'_5#y2L"F4Q8z\n\xec]/4'
 
@@ -35,6 +36,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.config["UPLOAD_FOLDER"] = "uploads/"
 
 
+
 PORT            = os.environ.get('PORT')
 MONGO_URI       = os.environ.get('MONGO_URI')
 DB_NAME         = os.environ.get('DB_NAME')
@@ -44,6 +46,12 @@ client = MongoClient(MONGO_URI)
 
 # accessing the database
 database = client[DB_NAME]
+
+
+def allowed_file(filename):
+    
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/register', methods = ["GET", "POST"])
@@ -252,18 +260,49 @@ def appointment_list():
 
     return render_template('appointment-list.html',user_from_db=user_from_db)
 
-# @app.route('/upload')
-# def upload_file():
-#    return render_template('upload.html')
-
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
-   if request.method == 'POST':
-      f = request.files['file']
-      filename = secure_filename(f.filename)
-      f.save(app.config['UPLOAD_FOLDER'] + filename)
-      return 'file uploaded successfully'
-   return render_template('upload1.html')
+
+    if request.method == 'POST':
+
+        if 'file' not in request.files:
+
+            flash('No file part')
+            return redirect(request.url)
+
+        file = request.files['file']
+        print(file)
+
+        if file.filename == '':
+
+            print("bro")
+
+            flash('No selected file')
+            return redirect(request.url)
+
+        if file and allowed_file(file.filename):
+
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return render_template('upload.html', message="File uploaded successfully")    
+
+        else:
+            flash('Allowed file type is .pdf')
+            return redirect(request.url)
+
+    return render_template('upload.html')
+
+
+# @app.route('/uploader', methods = ['GET', 'POST'])
+# def upload_file():
+#    if request.method == 'POST':
+#       f = request.files['file']
+#       filename = secure_filename(f.filename)
+#       f.save(app.config['UPLOAD_FOLDER'] + filename)
+#       return 'file uploaded successfully'
+#    return render_template('upload.html')
+
+
 
 @app.route('/feedback', methods = ['GET', 'POST'])
 def feedback():
