@@ -260,7 +260,8 @@ def appointment_list():
 def upload_file():
    if request.method == 'POST':
       f = request.files['file']
-      f.save(secure_filename(f.filename))
+      filename = secure_filename(f.filename)
+      f.save(app.config['UPLOAD_FOLDER'] + filename)
       return 'file uploaded successfully'
    return render_template('upload.html')
 

@@ -1,2 +1,6 @@
 .env
 __pycache__/
+# Allow
+! uploads/a.txt
+# Ignore
+uploads/*
