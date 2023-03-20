@@ -1,27 +1,28 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>Consultation</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="static/appointment-reg.css">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg nav-back fixed-top"
-    id="mainNav">
-      <div class="container">
-          <a class="navbar-brand" href="#">Medical</a>
-          <button class="navbar-toggler navbar-toggler-right" type="button"
-           data-toggle="collapse" data-target="#navbarResponsive"
-           aria-controls="navbarResponsive" aria-expanded="false"
-           aria-label="Toggle navigation"><i class="fas fa-syringe fa-2x"></i>
-           </button>
+<head>
+  <title>Consultation</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="static/appointment-reg.css">
 
-          <!-- <div class="collapse navbar-collapse" id="navbarResponsive">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg nav-back fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="#">Medical</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation"><i class="fas fa-syringe fa-2x"></i>
+      </button>
+
+      <!-- <div class="collapse navbar-collapse" id="navbarResponsive">
 
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link"
@@ -38,13 +39,13 @@
 
           </div> -->
 
-          </div>
+    </div>
 
   </nav>
 
-<!-- End Header -->
-   <!-- ======= Hero Section ======= -->
-   <section id="hero" class="d-flex align-items-center">
+  <!-- End Header -->
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
     <div class="container text-center position-relative">
       <h1>24/7 Care is available</h1>
       <h2>Every life matters.</h2>
@@ -53,121 +54,127 @@
   </section>
   <!-- End Hero -->
   <div class="container mt-4 p-4">
-      <div class="row">
-          <div class="col-md-6">
-              <h2 class="text-center my-4">
-                  Find Consultations
-              </h2>
-              <form action="/appointment-reg">
-                  <div class="form-group row">
-                      <label for="first_name" class="col-sm-4 col-lg-4">
-                          Patient Name
-                      </label>
-                      <div class="col-sm-8 col-lg-8">
-                          <input type="text" id="patient-name"class="form-control" name="first_name"
-                          placeholder="Name"required>
-                      </div>
-                  </div>
-                  <!---->
-                  <div class="form-group row">
-                    <label class="col-sm-4 col-lg-4">
-                        LastName
-                    </label>
-                    <div class="col-sm-8 col-lg-8">
-                        <input type="text"id="contact"class="form-control" name="last_name"
-                        placeholder="Name"required>
-                    </div>
-                </div>
-                <!---->
-                <div class="form-group row">
-                    <label class="col-sm-4 col-lg-4">
-                      Appointment Date
-                    </label>
-                    <div class="col-sm-8 col-lg-8">
-                        <input type="date"id="date"class="form-control" name="appointment_date">
-                    </div>
-                </div>
-                <!---->
-                <div class="form-group row">
-                    <label class="col-sm-4 col-lg-4">
-                       Time
-                    </label>
-                    <div class="col-sm-8 col-lg-8">
-
-                        <select id="time_slot" name="time_slot"class="form-control">
-                            <option value="9:00 AM">9:00 AM</option>
-                            <option value="10:00 AM">10:00 AM</option>
-                            <option value="11:00 AM">11:00 AM</option>
-                            <option value="12:00 PM">12:00 PM</option>
-                            <option value="1:00 PM">1:00 PM</option>
-                            <option value="2:00 PM">2:00 PM</option>
-                            <option value="3:00 PM">3:00 PM</option>
-                            <option value="4:00 PM">4:00 PM</option>
-                            <option value="5:00 PM">5:00 PM</option>
-                        </select>
-                        <!-- <input type="time"id="time"class="form-control"> -->
-
-                       </div>
-                </div>
-                <!---->
-                <div class="form-group row">
-                    <label class="col-sm-4 col-lg-4">
-                       Doctor
-                    </label>
-                    <div class="col-sm-8 col-lg-8">
-
-                        <select id="doctor" name="doctor" class="form-control">
-                            <option value="Dr. John">Dr. John</option>
-                            <option value="Dr. Smith">Dr. Smith</option>
-                            <option value="Dr. David">Dr. David</option>
-                        </select>
-                        <!-- <textarea id="symptoms" class="form-control" required></textarea> -->
-
-                    </div>
-                </div>
-                <!---->
-                <div class="form-group row justify-content-end">
-                    <div class="col-sm-5">
-                        <input type="submit"class="btn btn-form">
-                          
-
-                    </div>
-                </div>
-                <span>{{message}}</span>
-
-              </form>
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center my-4">
+          Find Consultations
+        </h2>
+        <form action="/appointment-registration" method="post">
+          <div class="form-group row">
+            <label for="first_name" class="col-sm-4 col-lg-4">
+              Patient Name
+            </label>
+            <div class="col-sm-8 col-lg-8">
+              <input type="text" id="patient-name" class="form-control" name="first_name" placeholder="Name" required>
+            </div>
           </div>
-          <div class="col-md-6">
-              <h2 id="services" class="text-center my-4"></h2>
-              <ul id="consultations"class="list-group"></ul>
+          <!---->
+          <div class="form-group row">
+            <label class="col-sm-4 col-lg-4">
+              LastName
+            </label>
+            <div class="col-sm-8 col-lg-8">
+              <input type="text" id="contact" class="form-control" name="last_name" placeholder="Name" required>
+            </div>
           </div>
+          <!---->
+          <div class="form-group row">
+            <label class="col-sm-4 col-lg-4">
+              Appointment Date
+            </label>
+            <div class="col-sm-8 col-lg-8">
+              <input type="date" id="date" class="form-control" name="appointment_date">
+            </div>
+          </div>
+          <!---->
+          <div class="form-group row">
+            <label class="col-sm-4 col-lg-4">
+              Time
+            </label>
+            <div class="col-sm-8 col-lg-8">
+
+              <select id="time_slot" name="time_slot" class="form-control">
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+                <option value="5:00 PM">5:00 PM</option>
+              </select>
+              <!-- <input type="time"id="time"class="form-control"> -->
+
+            </div>
+          </div>
+          <!---->
+          <div class="form-group row">
+            <label class="col-sm-4 col-lg-4">
+              Doctor
+            </label>
+            <div class="col-sm-8 col-lg-8">
+
+              <select id="doctor" name="doctor" class="form-control">
+                <option value="Dr. John">Dr. John</option>
+                <option value="Dr. Smith">Dr. Smith</option>
+                <option value="Dr. David">Dr. David</option>
+              </select>
+              <!-- <textarea id="symptoms" class="form-control" required></textarea> -->
+
+            </div>
+          </div>
+          <!---->
+          <div class="form-group row justify-content-end">
+            <div class="col-sm-5">
+              <input type="submit" class="btn btn-form">
+
+
+            </div>
+          </div>
+          <span>{{message}}</span>
+
+        </form>
       </div>
+      <div class="col-md-6">
+        <h2 id="services" class="text-center my-4"></h2>
+        <ul id="consultations" class="list-group"></ul>
+      </div>
+    </div>
   </div>
 
 
   <!-- Footer-->
   <footer class="footer py-4 mt-5">
     <div class="container">
-        <div class="row align-items-center">
+      <div class="row align-items-center">
 
-            <div class="col-lg-4 text-lg-left"></div>
-            <div class="col-lg-4 my-3 my-lg-0">
+        <div class="col-lg-4 text-lg-left"></div>
+        <div class="col-lg-4 my-3 my-lg-0">
 
 
-            </div>
-            <div class="col-lg-4 text-lg-right">
-              <a class="mr-3 text" href="#!">Privacy Policy</a>
-              <a href="#!"class="text">Terms of Use</a></div>
         </div>
+        <div class="col-lg-4 text-lg-right">
+          <a class="mr-3 text" href="#!">Privacy Policy</a>
+          <a href="#!" class="text">Terms of Use</a>
+        </div>
+      </div>
     </div>
-</footer>
+  </footer>
 
 
-      <script src="patient-reg.js"></script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+  <script src="patient-reg.js"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
