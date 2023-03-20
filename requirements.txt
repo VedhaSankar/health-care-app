@@ -1,2 +1,6 @@
 Flask-PyMongo
 Flask-Session
+python-dotenv
+Flask-Mail
+pymongo
+dnspython
