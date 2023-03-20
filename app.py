@@ -207,7 +207,7 @@ def appointment_reg():
 
                 message = "Please choose a different time slot/date or choose a different doctor"
 
-                return render_template("appointment-registration.html", message = message)
+                return render_template("appointment-reg.html", message = message)
 
         result = {
             "user_id"           : id,       #connects user db to patient registration db
@@ -237,7 +237,7 @@ def appointment_reg():
         return redirect('/appointment-list')
 
 
-    return render_template('appointment-registration.html')
+    return render_template('appointment-reg.html')
 
 
 @app.route('/appointment-list', methods = ["GET", "POST"])
