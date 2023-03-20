@@ -138,11 +138,11 @@ def login():
 
         if user_from_db:
 
-            
+
             if password == user_from_db['password']:
-       
-                
-                id = user_from_db['_id']        
+
+
+                id = user_from_db['_id']
                 session['id'] = id
 
                 print(f"User ID {id} set to session")
@@ -169,12 +169,12 @@ def logout():
 
 
 @app.route('/appointment-registration', methods = ["GET", "POST"])
-def appointment_registration():
+def appointment_reg():
 
     if (request.method == "POST"):
 
         # get user input from html form
-
+        print('lol')
         first_name          = request.values.get("first_name")
         last_name           = request.values.get("last_name")
         doctor              = request.form.getlist('doctor')[0]
@@ -221,7 +221,7 @@ def appointment_registration():
         # print(x)
 
         # message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
-        
+
 
         # for sender in EMAIL_LIST:
         # send_email(

@@ -58,33 +58,33 @@
               <h2 class="text-center my-4">
                   Find Consultations
               </h2>
-              <form>
+              <form action="/appointment-reg">
                   <div class="form-group row">
-                      <label class="col-sm-4 col-lg-4">
+                      <label for="first_name" class="col-sm-4 col-lg-4">
                           Patient Name
                       </label>
                       <div class="col-sm-8 col-lg-8">
-                          <input type="text"id="patient-name"class="form-control"
+                          <input type="text" id="patient-name"class="form-control" name="first_name"
                           placeholder="Name"required>
                       </div>
                   </div>
                   <!---->
                   <div class="form-group row">
                     <label class="col-sm-4 col-lg-4">
-                        Contact
+                        LastName
                     </label>
                     <div class="col-sm-8 col-lg-8">
-                        <input type="tel"id="contact"class="form-control"
-                        placeholder="123"required>
+                        <input type="text"id="contact"class="form-control" name="last_name"
+                        placeholder="Name"required>
                     </div>
                 </div>
                 <!---->
                 <div class="form-group row">
                     <label class="col-sm-4 col-lg-4">
-                      Date
+                      Appointment Date
                     </label>
                     <div class="col-sm-8 col-lg-8">
-                        <input type="date"id="date"class="form-control">
+                        <input type="date"id="date"class="form-control" name="appointment_date">
                     </div>
                 </div>
                 <!---->
@@ -112,7 +112,7 @@
                 <!---->
                 <div class="form-group row">
                     <label class="col-sm-4 col-lg-4">
-                       Symptoms
+                       Doctor
                     </label>
                     <div class="col-sm-8 col-lg-8">
 
@@ -128,11 +128,12 @@
                 <!---->
                 <div class="form-group row justify-content-end">
                     <div class="col-sm-5">
-                        <button type="submit"class="btn btn-form">
-                            Confirm
-                        </button>
+                        <input type="submit"class="btn btn-form">
+                          
+
                     </div>
                 </div>
+                <span>{{message}}</span>
 
               </form>
           </div>
