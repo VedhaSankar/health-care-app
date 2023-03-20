@@ -263,7 +263,7 @@ def upload_file():
       filename = secure_filename(f.filename)
       f.save(app.config['UPLOAD_FOLDER'] + filename)
       return 'file uploaded successfully'
-   return render_template('upload.html')
+   return render_template('upload1.html')
 
 if __name__== "__main__":
     app.run(host="0.0.0.0", debug = True, port = PORT)
