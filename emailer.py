@@ -33,6 +33,8 @@ def send_email(receiver_address,subject,content):
 
     print('Mail Sent')
 
+
+
 if __name__=='__main__':
     send_email(
         receiver_address='dummy@gmail.com',

@@ -10,6 +10,8 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from flask_mail import Mail, Message
 from emailer import send_email
+# from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 
 load_dotenv()
 
@@ -30,6 +32,7 @@ app.config['MAIL_PASSWORD'] = SENDER_PASS
 app.config['MAIL_USE_TLS']  = False
 app.config['MAIL_USE_SSL']  = True
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["UPLOAD_FOLDER"] = "uploads/"
 
 
 PORT            = os.environ.get('PORT')
@@ -249,6 +252,17 @@ def appointment_list():
 
     return render_template('appointment-list.html',user_from_db=user_from_db)
 
+# @app.route('/upload')
+# def upload_file():
+#    return render_template('upload.html')
+
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_file():
+   if request.method == 'POST':
+      f = request.files['file']
+      f.save(secure_filename(f.filename))
+      return 'file uploaded successfully'
+   return render_template('upload.html')
 
 if __name__== "__main__":
     app.run(host="0.0.0.0", debug = True, port = PORT)
