@@ -265,6 +265,23 @@ def upload_file():
       return 'file uploaded successfully'
    return render_template('upload1.html')
 
+@app.route('/feedback', methods = ['GET', 'POST'])
+def feedback():
+   if request.method == 'POST':
+       collection_name = 'feedback'
+       new_collection = database[collection_name]
+
+       feedback       = request.values.get("feedback")
+
+       result = {
+           "feedback":feedback
+       }
+       x=new_collection.insert_one(result)
+       print(x)
+       return 'feedback updated'
+   return render_template('feedback.html')
+
+
 if __name__== "__main__":
     app.run(host="0.0.0.0", debug = True, port = PORT)
     # authenticate("vedha", "1234")

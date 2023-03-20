@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+  <title>Give Feedback</title>
+  <style>
+    :root {
+	 --accent-col: #ff71a5;
+	 --link-col: #d22e69;
+	 --text-col: #121c51;
+}
+ *, *::before, *::after {
+	 box-sizing: border-box;
+	 color: var(--text-col);
+	 font-family: "Poppins";
+}
+ body {
+	 background: #8899a6;
+	 margin: 0;
+	 padding: 0;
+}
+ .wrapper {
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 height: 100vh;
+}
+ .card {
+	 width: 666.22px;
+	 height: 716px;
+	 background: #f8faff;
+	 box-shadow: 0px 24px 25px rgba(150, 113, 255, 0.1);
+	 border-radius: 20px;
+}
+ .title {
+	 font-weight: 700;
+	 font-size: 22px;
+	 padding: 75px 0px 16px 75px;
+}
+ .description {
+	 font-weight: 500;
+	 font-size: 16px;
+	 line-height: 24px;
+	 padding: 0px 0px 31px 75px;
+}
+ .rating {
+	 padding-left: 75px;
+}
+ .rating ul {
+	 display: flex;
+	 flex-direction: row;
+	 padding: 0;
+	 margin: 0;
+	 gap: 10px;
+	 list-style-type: none;
+}
+ .rating li {
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 flex-direction: column;
+	 color: #60699a;
+	 font-size: 14px;
+	 font-weight: 500;
+	 width: 96.84px;
+	 height: 105px;
+	 background: #fff;
+	 border: 2px solid #e6edff;
+	 border-radius: 5px;
+}
+ .rating li svg {
+	 margin-bottom: 10px;
+}
+ #selected {
+	 color: #121c51;
+	 background: #fff;
+	 border: 2px solid #f2f6ff;
+	 box-shadow: 0px 4px 4px rgba(164, 121, 255, 0.25), 0px 4px 17px rgba(255, 40, 40, 0.25);
+	 border-radius: 5px;
+}
+ .feedback-title {
+	 padding: 31px 0px 8px 75px;
+	 font-size: 14px;
+	 font-weight: 600;
+}
+ .box {
+	 background: #fff;
+	 border: 2px solid #a3b8e8;
+	 border-radius: 5px;
+	 width: 516px;
+	 height: 82px;
+	 margin: 0px 0px 31px 75px;
+}
+ .user-options {
+	 padding-left: 75px;
+	 font-weight: 500;
+	 font-size: 14px;
+}
+ .user-options a {
+	 color: var(--link-col);
+	 text-decoration: none;
+}
+ .privacy-policy {
+	 padding-bottom: 16px;
+}
+ .privacy-policy, .research-group {
+	 display: flex;
+	 flex-direction: row;
+}
+ .checkbox {
+	 background: #fff;
+	 border: 2px solid #a3b8e8;
+	 border-radius: 5px;
+	 width: 21px;
+	 height: 21px;
+	 margin-right: 10px;
+}
+ #ticked {
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 background: #ff71a4;
+	 border: none;
+}
+ .cta {
+	 display: flex;
+	 flex-direction: row;
+	 gap: 16px;
+	 padding-top: 50px;
+}
+ .submit, .cancel {
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+}
+ .submit {
+	 margin-left: 345px;
+	 width: 115px;
+	 height: 57px;
+	 background: linear-gradient(103.75deg, #ff71a4 0%, #ff71a4 100%);
+	 border-radius: 5px;
+	 color: white;
+	 font-size: 18px;
+	 font-weight: 500;
+}
+ .cancel {
+	 width: 115px;
+	 height: 57px;
+	 background: #fff;
+	 border-radius: 5px;
+	 color: #60699a;
+	 font-size: 18px;
+	 font-weight: 500;
+}
+ .checkbox:hover {
+	 cursor: pointer;
+}
+ .rating li:hover, .submit:hover, .cancel:hover {
+	 cursor: pointer;
+	 opacity: 0.8;
+}
+ .box:hover {
+	 cursor: text;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <div class="title">Give feedback</div>
+      <div class="description">What do you think of the issue search experience <br> within Jira projects?</div>
+      <!-- <div class="rating">
+        <ul>
+          <li><svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2_33)">
+                <path d="M16.5 18.3333H16.5183" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M27.5 18.3333H27.5183" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M17.4167 27.9583C18.0141 27.3486 18.7272 26.8642 19.5142 26.5335C20.3012 26.2028 21.1463 26.0324 22 26.0324C22.8537 26.0324 23.6988 26.2028 24.4858 26.5335C25.2728 26.8642 25.9859 27.3486 26.5833 27.9583" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M32.2043 32.2777C31.7043 32.7922 31.3661 33.4422 31.2318 34.147C31.0976 34.8519 31.173 35.5806 31.4489 36.243C31.7248 36.9053 32.1889 37.4722 32.7838 37.8733C33.3788 38.2745 34.0783 38.4922 34.7958 38.4997C35.5132 38.5071 36.2171 38.3039 36.8202 37.9151C37.4233 37.5264 37.8991 36.9693 38.1886 36.3128C38.4782 35.6562 38.5687 34.9292 38.4491 34.2217C38.3294 33.5143 38.0048 32.8575 37.5155 32.3327L34.8333 29.3333L32.2043 32.2777V32.2777Z" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M38.2525 24.7812C38.414 23.8629 38.4968 22.9324 38.5 22C38.5 18.7366 37.5323 15.5465 35.7193 12.8331C33.9062 10.1197 31.3293 8.00484 28.3143 6.756C25.2993 5.50715 21.9817 5.18039 18.781 5.81705C15.5803 6.45371 12.6403 8.02518 10.3327 10.3327C8.02518 12.6403 6.45371 15.5803 5.81705 18.781C5.18039 21.9817 5.50715 25.2993 6.756 28.3143C8.00484 31.3293 10.1197 33.9062 12.8331 35.7193C15.5465 37.5323 18.7366 38.5 22 38.5C23.265 38.5 24.4933 38.3607 25.6667 38.093" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+              <defs>
+                <clipPath id="clip0_2_33">
+                  <rect width="44" height="44" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            Terrible</li>
+          <li><svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2_89)">
+                <path d="M22 38.5C31.1127 38.5 38.5 31.1127 38.5 22C38.5 12.8873 31.1127 5.5 22 5.5C12.8873 5.5 5.5 12.8873 5.5 22C5.5 31.1127 12.8873 38.5 22 38.5Z" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16.5 18.3333H16.5183" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M27.5 18.3333H27.5183" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M17.4167 27.9583C18.0141 27.3486 18.7272 26.8642 19.5142 26.5335C20.3012 26.2028 21.1463 26.0324 22 26.0324C22.8537 26.0324 23.6987 26.2028 24.4858 26.5335C25.2728 26.8642 25.9859 27.3486 26.5833 27.9583" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+              <defs>
+                <clipPath id="clip0_2_89">
+                  <rect width="44" height="44" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            Bad</li>
+          <li><svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2_95)">
+                <path d="M22 38.5C31.1127 38.5 38.5 31.1127 38.5 22C38.5 12.8873 31.1127 5.5 22 5.5C12.8873 5.5 5.5 12.8873 5.5 22C5.5 31.1127 12.8873 38.5 22 38.5Z" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16.5 18.3333H16.5183" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M27.5 18.3333H27.5183" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16.5 27.5H27.5" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+              <defs>
+                <clipPath id="clip0_2_95">
+                  <rect width="44" height="44" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            Okay</li>
+          <li id="selected"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2_101)">
+                <path d="M22 38.5C31.1127 38.5 38.5 31.1127 38.5 22C38.5 12.8873 31.1127 5.5 22 5.5C12.8873 5.5 5.5 12.8873 5.5 22C5.5 31.1127 12.8873 38.5 22 38.5Z" stroke="#121C51" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16.5 18.3333H16.5183" stroke="#121C51" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M27.5 18.3333H27.5183" stroke="#121C51" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M17.4167 27.5C18.0141 28.1098 18.7272 28.5942 19.5142 28.9249C20.3012 29.2556 21.1463 29.4259 22 29.4259C22.8537 29.4259 23.6987 29.2556 24.4858 28.9249C25.2728 28.5942 25.9859 28.1098 26.5833 27.5" stroke="#121C51" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+              <defs>
+                <clipPath id="clip0_2_101">
+                  <rect width="44" height="44" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            Good</li>
+          <li><svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2_107)">
+                <path d="M22 38.5C31.1127 38.5 38.5 31.1127 38.5 22C38.5 12.8873 31.1127 5.5 22 5.5C12.8873 5.5 5.5 12.8873 5.5 22C5.5 31.1127 12.8873 38.5 22 38.5Z" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M16.5 16.5H16.5183" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M27.5 16.5H27.5183" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M29.3334 23.8333H14.6667M14.6667 23.8333C14.6667 25.7783 15.4393 27.6435 16.8146 29.0188C18.1898 30.3941 20.0551 31.1667 22 31.1667C23.9449 31.1667 25.8102 30.3941 27.1855 29.0188C28.5607 27.6435 29.3334 25.7783 29.3334 23.8333H14.6667Z" stroke="#60699A" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+              <defs>
+                <clipPath id="clip0_2_107">
+                  <rect width="44" height="44" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            Amazing</li>
+        </ul>
+      </div> -->
+      <div class="feedback-box">
+        <div class="feedback-title">What are the main reasons for your rating?</div>
+        <form action="/feedback" method="POST">        <div ><input type="text" placeholder="enter feedback" name="feedback" class="box"></div>
+      </div>
+      <div class="user-options">
+        <div class="privacy-policy">
+          <div class="checkbox" id="ticked"><svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2_121)">
+                <path d="M3.125 7.5L6.25 10.625L12.5 4.375" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+              <defs>
+                <clipPath id="clip0_2_121">
+                  <rect width="15" height="15" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div class="policy-agreement">I may be contacted about this feedback. <a href="#">Privacy Policy</a></div>
+        </div>
+        <div class="research-group">
+          <div class="checkbox"></div>
+          <div class="research-improvements">I’d like to help improve by joining the <a href="#">Research Group</a></div>
+        </div>
+      </div>
+      <div class="cta">
+        <div ><input type=submit class="submit"></div>
+        <div class="cancel">Cancel</div>
+      </div>
+    </div>
+  </div>
+</form>
+
+</body>
+
+</html>
