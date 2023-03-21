@@ -9,164 +9,195 @@
   <title>Give Feedback</title>
   <style>
     :root {
-	 --accent-col: #ff71a5;
-	 --link-col: #d22e69;
-	 --text-col: #121c51;
-}
- *, *::before, *::after {
-	 box-sizing: border-box;
-	 color: var(--text-col);
-	 font-family: "Poppins";
-}
- body {
-	 background: #8899a6;
-	 margin: 0;
-	 padding: 0;
-}
- .wrapper {
-	 display: flex;
-	 justify-content: center;
-	 align-items: center;
-	 height: 100vh;
-}
- .card {
-	 width: 666.22px;
-	 height: 716px;
-	 background: #f8faff;
-	 box-shadow: 0px 24px 25px rgba(150, 113, 255, 0.1);
-	 border-radius: 20px;
-}
- .title {
-	 font-weight: 700;
-	 font-size: 22px;
-	 padding: 75px 0px 16px 75px;
-}
- .description {
-	 font-weight: 500;
-	 font-size: 16px;
-	 line-height: 24px;
-	 padding: 0px 0px 31px 75px;
-}
- .rating {
-	 padding-left: 75px;
-}
- .rating ul {
-	 display: flex;
-	 flex-direction: row;
-	 padding: 0;
-	 margin: 0;
-	 gap: 10px;
-	 list-style-type: none;
-}
- .rating li {
-	 display: flex;
-	 justify-content: center;
-	 align-items: center;
-	 flex-direction: column;
-	 color: #60699a;
-	 font-size: 14px;
-	 font-weight: 500;
-	 width: 96.84px;
-	 height: 105px;
-	 background: #fff;
-	 border: 2px solid #e6edff;
-	 border-radius: 5px;
-}
- .rating li svg {
-	 margin-bottom: 10px;
-}
- #selected {
-	 color: #121c51;
-	 background: #fff;
-	 border: 2px solid #f2f6ff;
-	 box-shadow: 0px 4px 4px rgba(164, 121, 255, 0.25), 0px 4px 17px rgba(255, 40, 40, 0.25);
-	 border-radius: 5px;
-}
- .feedback-title {
-	 padding: 31px 0px 8px 75px;
-	 font-size: 14px;
-	 font-weight: 600;
-}
- .box {
-	 background: #fff;
-	 border: 2px solid #a3b8e8;
-	 border-radius: 5px;
-	 width: 516px;
-	 height: 82px;
-	 margin: 0px 0px 31px 75px;
-}
- .user-options {
-	 padding-left: 75px;
-	 font-weight: 500;
-	 font-size: 14px;
-}
- .user-options a {
-	 color: var(--link-col);
-	 text-decoration: none;
-}
- .privacy-policy {
-	 padding-bottom: 16px;
-}
- .privacy-policy, .research-group {
-	 display: flex;
-	 flex-direction: row;
-}
- .checkbox {
-	 background: #fff;
-	 border: 2px solid #a3b8e8;
-	 border-radius: 5px;
-	 width: 21px;
-	 height: 21px;
-	 margin-right: 10px;
-}
- #ticked {
-	 display: flex;
-	 justify-content: center;
-	 align-items: center;
-	 background: #ff71a4;
-	 border: none;
-}
- .cta {
-	 display: flex;
-	 flex-direction: row;
-	 gap: 16px;
-	 padding-top: 50px;
-}
- .submit, .cancel {
-	 display: flex;
-	 justify-content: center;
-	 align-items: center;
-}
- .submit {
-	 margin-left: 345px;
-	 width: 115px;
-	 height: 57px;
-	 background: linear-gradient(103.75deg, #ff71a4 0%, #ff71a4 100%);
-	 border-radius: 5px;
-	 color: white;
-	 font-size: 18px;
-	 font-weight: 500;
-}
- .cancel {
-	 width: 115px;
-	 height: 57px;
-	 background: #fff;
-	 border-radius: 5px;
-	 color: #60699a;
-	 font-size: 18px;
-	 font-weight: 500;
-}
- .checkbox:hover {
-	 cursor: pointer;
-}
- .rating li:hover, .submit:hover, .cancel:hover {
-	 cursor: pointer;
-	 opacity: 0.8;
-}
- .box:hover {
-	 cursor: text;
-}
+      --accent-col: #ff71a5;
+      --link-col: #d22e69;
+      --text-col: #121c51;
+    }
 
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      color: var(--text-col);
+      font-family: "Poppins";
+    }
+
+    body {
+      background: #8899a6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      width: 666.22px;
+      height: 716px;
+      background: #f8faff;
+      box-shadow: 0px 24px 25px rgba(150, 113, 255, 0.1);
+      border-radius: 20px;
+    }
+
+    .title {
+      font-weight: 700;
+      font-size: 22px;
+      padding: 75px 0px 16px 75px;
+    }
+
+    .description {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      padding: 0px 0px 31px 75px;
+    }
+
+    .rating {
+      padding-left: 75px;
+    }
+
+    .rating ul {
+      display: flex;
+      flex-direction: row;
+      padding: 0;
+      margin: 0;
+      gap: 10px;
+      list-style-type: none;
+    }
+
+    .rating li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #60699a;
+      font-size: 14px;
+      font-weight: 500;
+      width: 96.84px;
+      height: 105px;
+      background: #fff;
+      border: 2px solid #e6edff;
+      border-radius: 5px;
+    }
+
+    .rating li svg {
+      margin-bottom: 10px;
+    }
+
+    #selected {
+      color: #121c51;
+      background: #fff;
+      border: 2px solid #f2f6ff;
+      box-shadow: 0px 4px 4px rgba(164, 121, 255, 0.25), 0px 4px 17px rgba(255, 40, 40, 0.25);
+      border-radius: 5px;
+    }
+
+    .feedback-title {
+      padding: 31px 0px 8px 75px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .box {
+      background: #fff;
+      border: 2px solid #a3b8e8;
+      border-radius: 5px;
+      width: 516px;
+      height: 82px;
+      margin: 0px 0px 31px 75px;
+    }
+
+    .user-options {
+      padding-left: 75px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .user-options a {
+      color: var(--link-col);
+      text-decoration: none;
+    }
+
+    .privacy-policy {
+      padding-bottom: 16px;
+    }
+
+    .privacy-policy,
+    .research-group {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .checkbox {
+      background: #fff;
+      border: 2px solid #a3b8e8;
+      border-radius: 5px;
+      width: 21px;
+      height: 21px;
+      margin-right: 10px;
+    }
+
+    #ticked {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ff71a4;
+      border: none;
+    }
+
+    .cta {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      padding-top: 50px;
+    }
+
+    .submit,
+    .cancel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .submit {
+      margin-left: 345px;
+      width: 115px;
+      height: 57px;
+      background: linear-gradient(103.75deg, #ff71a4 0%, #ff71a4 100%);
+      border-radius: 5px;
+      color: white;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .cancel {
+      width: 115px;
+      height: 57px;
+      background: #fff;
+      border-radius: 5px;
+      color: #60699a;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .checkbox:hover {
+      cursor: pointer;
+    }
+
+    .rating li:hover,
+    .submit:hover,
+    .cancel:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
+
+    .box:hover {
+      cursor: text;
+    }
   </style>
 </head>
 
@@ -252,13 +283,16 @@
       </div> -->
       <div class="feedback-box">
         <div class="feedback-title">What are the main reasons for your rating?</div>
-        <form action="/feedback" method="POST">        <div ><input type="text" placeholder="enter feedback" name="feedback" class="box"></div>
+        <form action="/feedback" method="POST">
+          <div><input type="text" placeholder="enter feedback" name="feedback" class="box"></div>
       </div>
       <div class="user-options">
         <div class="privacy-policy">
-          <div class="checkbox" id="ticked"><svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div class="checkbox" id="ticked"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_2_121)">
-                <path d="M3.125 7.5L6.25 10.625L12.5 4.375" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M3.125 7.5L6.25 10.625L12.5 4.375" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
               </g>
               <defs>
                 <clipPath id="clip0_2_121">
@@ -271,17 +305,23 @@
         </div>
         <div class="research-group">
           <div class="checkbox"></div>
-          <div class="research-improvements">I’d like to help improve by joining the <a href="#">Research Group</a></div>
+          <div class="research-improvements">I’d like to help improve by joining the <a href="#">Research Group</a>
+          </div>
         </div>
       </div>
       <div class="cta">
-        <div ><input type=submit class="submit"> <div style="padding-top:8rem;margin-right:55rem ;">{{message}}</div>
-    </div>
-        <div class="cancel">Cancel</div>
+        <div><input type=submit class="submit">
+
+          <div style="padding-top:8rem;margin-right:25rem ;padding-left:15rem" ;padding-bottom:4rem;>
+            <b>
+              {{message}}</b>
+          </div>
         </div>
+        <!-- <div class="cancel">Cancel</div> -->
+      </div>
     </div>
   </div>
-</form>
+  </form>
 
 </body>
 
