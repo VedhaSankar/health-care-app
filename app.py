@@ -235,11 +235,11 @@ def appointment_reg():
 
 
         for sender in EMAIL_LIST:
-        send_email(
-        receiver_address=user_from_db['email'],
-        subject='Appointment Confirmation',
-        content=message
-        )
+            send_email(
+            receiver_address=user_from_db['email'],
+            subject='Appointment Confirmation',
+            content=message
+            )
 
 
         return redirect('/appointment-list')
