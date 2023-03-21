@@ -49,7 +49,7 @@ database = client[DB_NAME]
 
 
 def allowed_file(filename):
-    
+
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -284,7 +284,7 @@ def upload_file():
 
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return render_template('upload.html', message="File uploaded successfully")    
+            return render_template('upload.html', message="File uploaded successfully")
 
         else:
             flash('Allowed file type is .pdf')
@@ -317,7 +317,7 @@ def feedback():
        }
        x=new_collection.insert_one(result)
        print(x)
-       return 'feedback updated'
+       return render_template('feedback.html',message='feedback updated successfully')
    return render_template('feedback.html')
 
 
