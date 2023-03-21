@@ -231,15 +231,15 @@ def appointment_reg():
 
         # print(x)
 
-        # message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
+        message = f'Hello {first_name} {last_name}!\nYour appointment has been booked successfully. \nDoctor: {doctor} \nAppointment Date: {appointment_date} \nTime Slot: {time_slot}'
 
 
-        # for sender in EMAIL_LIST:
-        # send_email(
-        # receiver_address=user_from_db['email'],
-        # subject='Appointment Confirmation',
-        # content=message
-        # )
+        for sender in EMAIL_LIST:
+        send_email(
+        receiver_address=user_from_db['email'],
+        subject='Appointment Confirmation',
+        content=message
+        )
 
 
         return redirect('/appointment-list')
