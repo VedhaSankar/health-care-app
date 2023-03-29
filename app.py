@@ -323,21 +323,22 @@ def feedback():
 
 @app.route('/modify-appointment', methods = ['GET', 'POST'])
 def modify_appointment():
+
     if request.method == 'POST':
        patient_name             = request.values.get("patient-name")
-       old_appointment_date            = datetime.strptime(request.form['old-appointment-date'], '%Y-%m-%d').date()
-       old_appointment_time            = request.form.getlist('old-appointment-time')[0]
-       new_appointment_date            = datetime.strptime(request.form['new-appointment-date'], '%Y-%m-%d').date()
-       new_appointment_time            = request.form.getlist('new-appointment-time')[0]
-       doctor            = request.values.getlist("doctor")[0]
+       old_appointment_date     = datetime.strptime(request.form['old-appointment-date'], '%Y-%m-%d').date()
+       old_appointment_time     = request.form.getlist('old-appointment-time')[0]
+       new_appointment_date     = datetime.strptime(request.form['new-appointment-date'], '%Y-%m-%d').date()
+       new_appointment_time     = request.form.getlist('new-appointment-time')[0]
+       doctor                   = request.values.getlist("doctor")[0]
 
-       old_appointment_date = old_appointment_date.strftime("%d/%m/%Y")
-       new_appointment_date = new_appointment_date.strftime("%d/%m/%Y")
+       old_appointment_date     = old_appointment_date.strftime("%d/%m/%Y")
+       new_appointment_date     = new_appointment_date.strftime("%d/%m/%Y")
 
-       collection_name = 'patient-appointment'
-       patient_collection = database[collection_name]
+       collection_name          = 'patient-appointment'
+       patient_collection       = database[collection_name]
 
-       appointment_from_db = patient_collection.find({},{"appointment_date":1, "time_slot" : 1, "doctor" : 1})
+       appointment_from_db      = patient_collection.find({},{"appointment_date":1, "time_slot" : 1, "doctor" : 1})
 
        for item in appointment_from_db:
 
@@ -346,6 +347,7 @@ def modify_appointment():
                 message = "Please choose a different time slot/date or choose a different doctor"
 
                 return render_template("modify-appointment.html",message=message)
+            
             else:
 
 
@@ -362,5 +364,6 @@ def modify_appointment():
 
 
 if __name__== "__main__":
+    
     app.run(host="0.0.0.0", debug = True, port = PORT)
     # authenticate("vedha", "1234")
