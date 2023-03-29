@@ -350,7 +350,7 @@ def modify_appointment():
 
                 message = "Please choose a different time slot/date or choose a different doctor"
 
-                return render_template("modify-appointment.html",message = message)
+                return render_template("modify-appointment.html", message = message)
             
             else:
 
@@ -365,7 +365,7 @@ def modify_appointment():
 
                 # patient_collection.update(myquery, newvalues)
 
-            return render_template("modify-appointment.html",message="Appointment modified successfully")
+            return render_template("modify-appointment.html", message="Appointment modified successfully")
        
     return render_template("modify-appointment.html")
 
