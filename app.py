@@ -355,13 +355,10 @@ def modify_appointment():
             else:
 
                 condition = { "first_name": patient_name }
-                update_date = { "$set": { "appointment_date": new_appointment_date } }
+                update_new = { "$set": { "appointment_date": new_appointment_date, "time_slot": new_appointment_time } }
 
-                update_time = { "$set": { "appointment_time": new_appointment_time } }
-                # newvalues1 = { "$set": { "time_slot": nat } }
 
-                patient_collection.update(condition, update_date)
-                patient_collection.update(condition, update_time)
+                patient_collection.update_one(condition, update_new)
 
                 # patient_collection.update(myquery, newvalues)
 
