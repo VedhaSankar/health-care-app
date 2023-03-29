@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <form action="/modify-appointment" method="post">
-        Patient Name: <input type="text" name="pn" id="pn">
-        Old Appointment Date : <input type="date" name="oad">
-        Old Appointment Time :  <select id="oat" name="oat">
+        Patient Name: <input type="text" name="patient-name" id="pn">
+        Old Appointment Date : <input type="date" name="old-appointment-date">
+        Old Appointment Time : <select id="old-appointment-time" name="old-appointment-time">
             <option value="9:00 AM">9:00 AM</option>
             <option value="10:00 AM">10:00 AM</option>
             <option value="11:00 AM">11:00 AM</option>
@@ -20,27 +22,28 @@
             <option value="3:00 PM">3:00 PM</option>
             <option value="4:00 PM">4:00 PM</option>
             <option value="5:00 PM">5:00 PM</option>
-          </select>
-          New Appointment Date : <input type="date" name="nad">
-          New Appointment Time :  <select id="nat" name="nat">
-              <option value="9:00 AM">9:00 AM</option>
-              <option value="10:00 AM">10:00 AM</option>
-              <option value="11:00 AM">11:00 AM</option>
-              <option value="12:00 PM">12:00 PM</option>
-              <option value="1:00 PM">1:00 PM</option>
-              <option value="2:00 PM">2:00 PM</option>
-              <option value="3:00 PM">3:00 PM</option>
-              <option value="4:00 PM">4:00 PM</option>
-              <option value="5:00 PM">5:00 PM</option>
-            </select>
+        </select>
+        New Appointment Date : <input type="date" name="new-appointment-date">
+        New Appointment Time : <select id="new-appointment-time" name="new-appointment-time">
+            <option value="9:00 AM">9:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="3:00 PM">3:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+        </select>
 
-            Doctor : <select id="doctor" name="doc" class="form-control">
-                <option value="Dr. John">Dr. John</option>
-                <option value="Dr. Smith">Dr. Smith</option>
-                <option value="Dr. David">Dr. David</option>
-              </select>
-              <input type="submit" value="submit">
+        Doctor : <select id="doctor" name="doctor" class="form-control">
+            <option value="Dr. John">Dr. John</option>
+            <option value="Dr. Smith">Dr. Smith</option>
+            <option value="Dr. David">Dr. David</option>
+        </select>
+        <input type="submit" value="submit">
     </form>
     {{message}}
 </body>
+
 </html>

@@ -324,15 +324,15 @@ def feedback():
 @app.route('/modify-appointment', methods = ['GET', 'POST'])
 def modify_appointment():
     if request.method == 'POST':
-       pn             = request.values.get("pn")
-       oad            = datetime.strptime(request.form['oad'], '%Y-%m-%d').date()
-       oat            = request.form.getlist('oat')[0]
-       nad            = datetime.strptime(request.form['nad'], '%Y-%m-%d').date()
-       nat            = request.form.getlist('nat')[0]
-       doc            = request.values.getlist("doc")[0]
+       patient_name             = request.values.get("patient-name")
+       old_appointment_date            = datetime.strptime(request.form['old-appointment-date'], '%Y-%m-%d').date()
+       old_appointment_time            = request.form.getlist('old-appointment-time')[0]
+       new_appointment_date            = datetime.strptime(request.form['new-appointment-date'], '%Y-%m-%d').date()
+       new_appointment_time            = request.form.getlist('new-appointment-time')[0]
+       doctor            = request.values.getlist("doctor")[0]
 
-       oad = oad.strftime("%d/%m/%Y")
-       nad = nad.strftime("%d/%m/%Y")
+       old_appointment_date = old_appointment_date.strftime("%d/%m/%Y")
+       new_appointment_date = new_appointment_date.strftime("%d/%m/%Y")
 
        collection_name = 'patient-appointment'
        patient_collection = database[collection_name]
@@ -341,7 +341,7 @@ def modify_appointment():
 
        for item in appointment_from_db:
 
-            if item['appointment_date'] == nad and item["time_slot"] == nat and item['doctor'] == doc:
+            if item['appointment_date'] == new_appointment_date and item["time_slot"] == new_appointment_time and item['doctor'] == doctor:
 
                 message = "Please choose a different time slot/date or choose a different doctor"
 
@@ -349,21 +349,16 @@ def modify_appointment():
             else:
 
 
-                myquery = { "first_name": pn }
-                newvalues = { "$set": { "appointment_date": nad } }
+                myquery = { "first_name": patient_name }
+                newvalues = { "$set": { "appointment_date": new_appointment_date } }
                 # newvalues1 = { "$set": { "time_slot": nat } }
 
                 patient_collection.update_one(myquery, newvalues)
                 # patient_collection.update_one(myquery, newvalues)
 
             return render_template("modify-appointment.html",message="success")
+       
     return render_template("modify-appointment.html")
-
-
-
-
-
-
 
 
 if __name__== "__main__":
