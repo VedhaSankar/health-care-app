@@ -306,8 +306,12 @@ def upload_file():
 
 @app.route('/feedback', methods = ['GET', 'POST'])
 def feedback():
+   
+
    if request.method == 'POST':
+       
        collection_name = 'feedback'
+
        new_collection = database[collection_name]
 
        feedback       = request.values.get("feedback")
@@ -346,24 +350,27 @@ def modify_appointment():
 
                 message = "Please choose a different time slot/date or choose a different doctor"
 
-                return render_template("modify-appointment.html",message=message)
+                return render_template("modify-appointment.html",message = message)
             
             else:
 
+                condition = { "first_name": patient_name }
+                update_date = { "$set": { "appointment_date": new_appointment_date } }
 
-                myquery = { "first_name": patient_name }
-                newvalues = { "$set": { "appointment_date": new_appointment_date } }
+                update_time = { "$set": { "appointment_time": new_appointment_time } }
                 # newvalues1 = { "$set": { "time_slot": nat } }
 
-                patient_collection.update_one(myquery, newvalues)
-                # patient_collection.update_one(myquery, newvalues)
+                patient_collection.update(condition, update_date)
+                patient_collection.update(condition, update_time)
 
-            return render_template("modify-appointment.html",message="success")
+                # patient_collection.update(myquery, newvalues)
+
+            return render_template("modify-appointment.html",message="Appointment modified successfully")
        
     return render_template("modify-appointment.html")
 
 
 if __name__== "__main__":
-    
+
     app.run(host="0.0.0.0", debug = True, port = PORT)
     # authenticate("vedha", "1234")
