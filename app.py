@@ -373,7 +373,7 @@ def modify_appointment():
 
                 # patient_collection.update(myquery, newvalues)
 
-            return render_template("modify-appointment.html", message="Appointment modified successfully")
+                return render_template("modify-appointment.html", message="Appointment modified successfully")
 
     return render_template("modify-appointment.html")
 
