@@ -350,10 +350,10 @@ def modify_appointment():
 
 
                 myquery = { "first_name": pn }
-                newvalues = { "$set": { "appointment_date": nad } }
+                newvalues = { "$set": { "appointment_date": nad  ,"time_slot": nat}}
                 # newvalues1 = { "$set": { "time_slot": nat } }
 
-                patient_collection.update_one(myquery, newvalues)
+                patient_collection.update(myquery, newvalues)
                 # patient_collection.update_one(myquery, newvalues)
 
             return render_template("modify-appointment.html",message="success")
