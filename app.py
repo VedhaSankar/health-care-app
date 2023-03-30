@@ -258,7 +258,18 @@ def appointment_list():
 
     user_from_db = new_collection.find({'user_id': session['id']}, {"appointment_date" : 1, "time_slot":1, "doctor":1, "first_name":1, "last_name":1})
 
-    return render_template('appointment-list.html',user_from_db=user_from_db)
+    return render_template('appointment-list.html',user_from_db = user_from_db)
+
+
+@app.route('/appointments', methods = ["GET", "POST"])
+def appointments():
+
+    # list all apopointments for a user
+    # modify appointment
+    # get report
+
+    return render_template('appointments-master-page.html')
+
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
