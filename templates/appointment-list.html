@@ -7,24 +7,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>appointment list page</title>
     <style>
-         .btn {
-            margin-top: 1rem;
-            display: inline-block;
-            padding: 1rem 3rem;
-            border-radius: .5rem;
-            background: var(--primary);
-            font-size: 1.7rem;
-            color: var(--white);
-            cursor: pointer;
-        }
+          .btn{
+            /* padding:25px; */
+            background: #9ca0a0;
+	        color: white;
+	        border-style: outset;
+	        border-color: #e1e8ec;
+	        height: 50px;
+	        width: 250px;
+	        font: bold15px arial,sans-serif;
+	        text-shadow: none;
+            text-decoration: none;
+            padding-left:25px;
+}
+.h1{
+    padding-bottom: 5rem;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  color: #333;
+  padding-bottom: 25px;
+}
 
-        .btn:hover {
-            background: var(--secondary);
-        }
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #ddd;
+}
+
+
     </style>
 </head>
 
 <body>
+    <div class="h1" style="font-family: 'Courier New', Courier, monospace;text-align:center"><h1>Appointments Dashboard</h1></div>
     <table border="2px">
         <tr>
             <th>Firstname</th>
@@ -35,6 +66,7 @@
         </tr>
 
         {% for list in user_from_db %}
+        <tbody>
         <tr>
             <td>{{list.get('first_name')}}</td>
             <td>{{list.get('last_name')}}</td>
@@ -44,9 +76,11 @@
 
         </tr>
         {% endfor %}
+    </tbody>
 
     </table>
-    <a href="/modify-appointment" class="btn">Modify appointment</a>
+
+    <button href="/modify-appointment" class="btn">MODIFY APPOINTMENT</button>
 
 
 </body>
