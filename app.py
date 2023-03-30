@@ -332,7 +332,7 @@ def feedback():
        }
        x=new_collection.insert_one(result)
        print(x)
-       return render_template('feedback.html',message='feedback updated successfully')
+       return render_template('feedback.html',message='Thank you for your feedback!')
    return render_template('feedback.html')
 
 

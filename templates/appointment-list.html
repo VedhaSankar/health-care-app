@@ -2,88 +2,95 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>appointment list page</title>
-    <style>
-          .btn{
-            /* padding:25px; */
-            background: #9ca0a0;
-	        color: white;
-	        border-style: outset;
-	        border-color: #e1e8ec;
-	        height: 50px;
-	        width: 250px;
-	        font: bold15px arial,sans-serif;
-	        text-shadow: none;
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>appointment list page</title>
+  <style>
+    .btn {
+      /* padding:25px; */
+      background: #9ca0a0;
+      color: white;
+      border-style: outset;
+      border-color: #e1e8ec;
+      height: 50px;
+      width: 250px;
+      font: bold 15px arial, sans-serif;
+      text-shadow: none;
 
-            padding-left:25px;
-}
-a{
-    text-decoration: none;
-}
-.h1{
-    padding-bottom: 5rem;
-}
-table {
-  border-collapse: collapse;
-  width: 100%;
-  font-family: Arial, sans-serif;
-  color: #333;
-  padding-bottom: 25px;
-}
+      padding-left: 25px;
+    }
 
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
+    a {
+      text-decoration: none;
+      color: white;
+    }
 
-th {
-  background-color: #f2f2f2;
-}
+    .h1 {
+      padding-bottom: 5rem;
+    }
 
-tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      color: #333;
+      padding-bottom: 25px;
+    }
 
-tbody tr:hover {
-  background-color: #ddd;
-}
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
 
+    th {
+      background-color: #f2f2f2;
+    }
 
-    </style>
+    tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+      background-color: #ddd;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="h1" style="font-family: 'Courier New', Courier, monospace;text-align:center"><h1>Appointments Dashboard</h1></div>
-    <table border="2px">
-        <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Timeslot</th>
-            <th>Doctor</th>
-            <th>Appointment-date</th>
-        </tr>
+  <div class="h1" style="font-family: 'Courier New', Courier, monospace;text-align:center">
+    <h1>Appointments Dashboard</h1>
+  </div>
+  <table border="2px">
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Timeslot</th>
+      <th>Doctor</th>
+      <th>Appointment-date</th>
+    </tr>
 
-        {% for list in user_from_db %}
-        <tbody>
-        <tr>
-            <td>{{list.get('first_name')}}</td>
-            <td>{{list.get('last_name')}}</td>
-            <td>{{list.get('time_slot')}}</td>
-            <td>{{list.get('doctor')}}</td>
-            <td>{{list.get('appointment_date')}}</td>
+    {% for list in user_from_db %}
+    <tbody>
+      <tr>
+        <td>{{list.get('first_name')}}</td>
+        <td>{{list.get('last_name')}}</td>
+        <td>{{list.get('time_slot')}}</td>
+        <td>{{list.get('doctor')}}</td>
+        <td>{{list.get('appointment_date')}}</td>
 
-        </tr>
-        {% endfor %}
+      </tr>
+      {% endfor %}
     </tbody>
 
-    </table>
+  </table>
 
-   <center> <button  class="btn"><a href="/modify-appointment"></a></button></center>
+  <center> <button class="btn"><a href="/modify-appointment">
+        MODIFY APPOINTMENT
+      </a></button></center>
+
 
 
 </body>

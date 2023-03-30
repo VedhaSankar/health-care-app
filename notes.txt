@@ -1,3 +1,4 @@
 References:
 
   https://github.com/atreya-iyer/sleeptracker/blob/master/backend/index.js
+  https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-azure-cli

@@ -7,60 +7,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .btn{
+        .btn {
             /* padding:25px; */
             background: #9ca0a0;
-	        color: white;
-	        border-style: outset;
-	        border-color: #e1e8ec;
-	        height: 50px;
-	        width: 200px;
-	        font: bold15px arial,sans-serif;
-	        text-shadow: none;
-}
-*{
-    background-color:rgb(241, 241, 241);
-}
-.header{
-    /* background-color:alice aliceblue; */
-    height:100px;
-}
-.h1{
-    padding-top:29px;
-}
+            color: white;
+            border-style: outset;
+            border-color: #e1e8ec;
+            height: 50px;
+            width: 200px;
+            font: bold15px arial, sans-serif;
+            text-shadow: none;
+        }
 
-.body{
-    padding-top:50px;
-    font-size: 28px;
-    text-align: center;
-    /* background-color: aliceblue; */
-}
+        * {
+            background-color: rgb(241, 241, 241);
+        }
 
-label{
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 28px;
+        .header {
+            /* background-color:alice aliceblue; */
+            height: 100px;
+        }
 
-}
-select{
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 28px;
-}
-#msg{
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 28px;
-}
-#dt{
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 24px;
-}
+        .h1 {
+            padding-top: 29px;
+        }
 
+        .body {
+            padding-top: 50px;
+            font-size: 28px;
+            text-align: center;
+            /* background-color: aliceblue; */
+        }
+
+        label {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 28px;
+
+        }
+
+        select {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 28px;
+        }
+
+        #msg {
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 28px;
+        }
+
+        #dt {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 24px;
+        }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <center><h1 class="h1" style="color:rgb(80, 79, 77);font-family: 'Courier New', Courier, monospace;">MODIFY APPOINTMENT</h1></center>
+        <center>
+            <h1 class="h1" style="color:rgb(80, 79, 77);font-family: 'Courier New', Courier, monospace;">MODIFY
+                APPOINTMENT</h1>
+        </center>
 
 
 
@@ -68,43 +76,43 @@ select{
     <div class="body">
 
 
-    <form action="/modify-appointment" method="post">
-        <label>Patient Name:</label> <input type="text" name="pn" id="pn"><br><br>
-        <label> Old Appointment Date</label> : <input type="date" name="oad" id="dt"><br><br>
-        <label>Old Appointment Time : </label> <select id="oat" name="oat"><br>
-            <option value="9:00 AM">9:00 AM</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="12:00 PM">12:00 PM</option>
-            <option value="1:00 PM">1:00 PM</option>
-            <option value="2:00 PM">2:00 PM</option>
-            <option value="3:00 PM">3:00 PM</option>
-            <option value="4:00 PM">4:00 PM</option>
-            <option value="5:00 PM">5:00 PM</option>
-          </select><br><br>
-        <label>  New Appointment Date :</label> <input type="date" name="nad" id="dt"><br><br>
-    <label> New Appointment Time : </label> <select id="nat" name="nat"><br><br>
-              <option value="9:00 AM">9:00 AM</option>
-              <option value="10:00 AM">10:00 AM</option>
-              <option value="11:00 AM">11:00 AM</option>
-              <option value="12:00 PM">12:00 PM</option>
-              <option value="1:00 PM">1:00 PM</option>
-              <option value="2:00 PM">2:00 PM</option>
-              <option value="3:00 PM">3:00 PM</option>
-              <option value="4:00 PM">4:00 PM</option>
-              <option value="5:00 PM">5:00 PM</option>
+        <form action="/modify-appointment" method="post">
+            <label>Patient Name:</label> <input type="text" name="pn" id="pn"><br><br>
+            <label> Old Appointment Date</label> : <input type="date" name="old-appointment-date" id="dt"><br><br>
+            <label>Old Appointment Time : </label> <select id="oat" name="old-appointment-time"><br>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+                <option value="5:00 PM">5:00 PM</option>
+            </select><br><br>
+            <label> New Appointment Date :</label> <input type="date" name="new-appointment-date" id="dt"><br><br>
+            <label> New Appointment Time : </label> <select id="nat" name="new-appointment-time"><br><br>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="1:00 PM">1:00 PM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <option value="4:00 PM">4:00 PM</option>
+                <option value="5:00 PM">5:00 PM</option>
             </select><br><br>
 
-        <label > Doctor :</label> <select id="doctor" name="doc" class="form-control">
+            <label> Doctor :</label> <select id="doctor" name="doctor" class="form-control">
                 <option value="Dr. John">Dr. John</option>
                 <option value="Dr. Smith">Dr. Smith</option>
                 <option value="Dr. David">Dr. David</option>
-              </select><br><br>
-           <div class="bt">   <input type="submit" class="btn" value="APPLY CHANGES"></div>
-    </form>
-    <br>
-</div>
-  <div id="msg">{{message}}</div>
+            </select><br><br>
+            <div class="bt"> <input type="submit" class="btn" value="APPLY CHANGES"></div>
+        </form>
+        <br>
+    </div>
+    <div id="msg">{{message}}</div>
 </body>
 
 </html>
